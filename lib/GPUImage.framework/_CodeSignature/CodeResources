@@ -4,13 +4,13 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		Y/zzZVahlzqsXsKRy9ythZX/tmM=
+		</data>
 		<key>Headers/GLProgram.h</key>
 		<data>
 		mxV0e3ySbX5wXHtFNuXmzouYzhg=
-		</data>
-		<key>Headers/GPUImage.h</key>
-		<data>
-		HUrEgiB6fAbHKKOhgpEMG/+gBtU=
 		</data>
 		<key>Headers/GPUImage3x3ConvolutionFilter.h</key>
 		<data>
@@ -200,10 +200,6 @@
 		<data>
 		RfmKJiQmvREjYI3efESP44q6HqY=
 		</data>
-		<key>Headers/GPUImageFilterFramework.h</key>
-		<data>
-		xUrrJq2j1k1WykDTAhoMDf2rMe8=
-		</data>
 		<key>Headers/GPUImageFilterGroup.h</key>
 		<data>
 		ci1P1K2/aqZPFXVlXh7s4sCxiDA=
@@ -223,6 +219,10 @@
 		<key>Headers/GPUImageFramebufferCache.h</key>
 		<data>
 		M1gALTDvDppaMmUPGKd9dcOy7ow=
+		</data>
+		<key>Headers/GPUImageFramework.h</key>
+		<data>
+		+epzM7KpjPip/rvReTzy3D1M8X8=
 		</data>
 		<key>Headers/GPUImageGammaFilter.h</key>
 		<data>
@@ -275,14 +275,6 @@
 		<key>Headers/GPUImageHighlightShadowFilter.h</key>
 		<data>
 		RXF9rkKoFgO1yEf1lGYwnYVWaKA=
-		</data>
-		<key>Headers/GPUImageHighlightShadowTintFilter.h</key>
-		<data>
-		Uergshwv7pnokexqvGdPEI+ROZU=
-		</data>
-		<key>Headers/GPUImageHistogramEqualizationFilter.h</key>
-		<data>
-		Jx3UmNICspUkpwl8TtCAJvOZlSM=
 		</data>
 		<key>Headers/GPUImageHistogramFilter.h</key>
 		<data>
@@ -448,10 +440,6 @@
 		<data>
 		LEZfIm8tBunGxiLLQ2HpmDe2YFo=
 		</data>
-		<key>Headers/GPUImagePicture+TextureSubimage.h</key>
-		<data>
-		MTD+sWYHF3HDKTXOBU/4k+YtiPQ=
-		</data>
 		<key>Headers/GPUImagePicture.h</key>
 		<data>
 		YXNkWRwAyvK6BCCdUpyOohow230=
@@ -548,10 +536,6 @@
 		<data>
 		kh4W2i34QVaPpUxLoB7QhmiZBMM=
 		</data>
-		<key>Headers/GPUImageSkinToneFilter.h</key>
-		<data>
-		oh+WpC/rGqNOFMfkXdW2RsXYJps=
-		</data>
 		<key>Headers/GPUImageSmoothToonFilter.h</key>
 		<data>
 		LBI7rJgJxalx0XL08kyxrw2i7dU=
@@ -630,7 +614,7 @@
 		</data>
 		<key>Headers/GPUImageToneCurveFilter.h</key>
 		<data>
-		s8BgP7lM2uiHpVcwPvmEZwuE3f4=
+		TUxmjstVUOFZkzUBdhC8py2pvlQ=
 		</data>
 		<key>Headers/GPUImageToonFilter.h</key>
 		<data>
@@ -663,10 +647,6 @@
 		<key>Headers/GPUImageUnsharpMaskFilter.h</key>
 		<data>
 		tvbQ+h7cIOa1obTOfERZEKlMLgc=
-		</data>
-		<key>Headers/GPUImageVibranceFilter.h</key>
-		<data>
-		/eKIzJCL/BL5cOEQjlvCd/7cT/k=
 		</data>
 		<key>Headers/GPUImageVideoCamera.h</key>
 		<data>
@@ -706,11 +686,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		nHmiCoxGa4Dg2KKSJI+4YcRyaNw=
+		F9f5Vwp2Sa2//JGfz5rctjPn25U=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		w8wgMwA2G5Ud8z6h52m895BM+Rc=
+		R0/ACD1+K7JSlm2BJjfVTa4Z+LU=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -724,17 +704,6 @@
 			<key>hash2</key>
 			<data>
 			cFNmhWSDusMHEdqpJfIR7brb3prKF57vcZvlycZdoHI=
-			</data>
-		</dict>
-		<key>Headers/GPUImage.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			HUrEgiB6fAbHKKOhgpEMG/+gBtU=
-			</data>
-			<key>hash2</key>
-			<data>
-			gCGjyabgeFTu22qH526YkzarVuRd9yaX2OvJJ+Uev8E=
 			</data>
 		</dict>
 		<key>Headers/GPUImage3x3ConvolutionFilter.h</key>
@@ -1254,17 +1223,6 @@
 			NUHqU0nOp+NoUiS3HPIvn53NgAg2APxYxdcSRQ65x0M=
 			</data>
 		</dict>
-		<key>Headers/GPUImageFilterFramework.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			xUrrJq2j1k1WykDTAhoMDf2rMe8=
-			</data>
-			<key>hash2</key>
-			<data>
-			rbE5TXy33jeLLZWCHanWBqkFVfwpE8ocYpMIV+dHMkM=
-			</data>
-		</dict>
 		<key>Headers/GPUImageFilterGroup.h</key>
 		<dict>
 			<key>hash</key>
@@ -1318,6 +1276,17 @@
 			<key>hash2</key>
 			<data>
 			jZVzaFZNXSJra69NHUmnvNkM518xrWsdLgHdp4hiDEw=
+			</data>
+		</dict>
+		<key>Headers/GPUImageFramework.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			+epzM7KpjPip/rvReTzy3D1M8X8=
+			</data>
+			<key>hash2</key>
+			<data>
+			Hy7Qk9anT+/NGiw5Y8tMlFiEr0BREQnCdJ8P4jHCPFo=
 			</data>
 		</dict>
 		<key>Headers/GPUImageGammaFilter.h</key>
@@ -1461,28 +1430,6 @@
 			<key>hash2</key>
 			<data>
 			4w2o4nmX6zOpST3S8mU8dK4iZJwQkNcZhr53zaIltK0=
-			</data>
-		</dict>
-		<key>Headers/GPUImageHighlightShadowTintFilter.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			Uergshwv7pnokexqvGdPEI+ROZU=
-			</data>
-			<key>hash2</key>
-			<data>
-			+hk1PeOqcKNlWlIbTdnBglaC7elsB92TfAmD3a2GWCc=
-			</data>
-		</dict>
-		<key>Headers/GPUImageHistogramEqualizationFilter.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			Jx3UmNICspUkpwl8TtCAJvOZlSM=
-			</data>
-			<key>hash2</key>
-			<data>
-			VoJJwsDkAfvkWyOaqu0SJHsS3aDLHDA1rVnzuFM/vHU=
 			</data>
 		</dict>
 		<key>Headers/GPUImageHistogramFilter.h</key>
@@ -1936,17 +1883,6 @@
 			SQdXvQUqxGOC4T1eQioh3t92KeSssTu4dCc0OJbKVas=
 			</data>
 		</dict>
-		<key>Headers/GPUImagePicture+TextureSubimage.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			MTD+sWYHF3HDKTXOBU/4k+YtiPQ=
-			</data>
-			<key>hash2</key>
-			<data>
-			5ZfRJAF6cru81m3JCVLq64ZBuCS44FLHA6dK4jZacYc=
-			</data>
-		</dict>
 		<key>Headers/GPUImagePicture.h</key>
 		<dict>
 			<key>hash</key>
@@ -2211,17 +2147,6 @@
 			9bX46choNKf3/pNqSfKi0ZRjVp3fwoE+FOraWoXT5U8=
 			</data>
 		</dict>
-		<key>Headers/GPUImageSkinToneFilter.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			oh+WpC/rGqNOFMfkXdW2RsXYJps=
-			</data>
-			<key>hash2</key>
-			<data>
-			KmXH0/PKhfSj9E9SFxQjw9YzTZdVbRKTUwHuZ3dL4I0=
-			</data>
-		</dict>
 		<key>Headers/GPUImageSmoothToonFilter.h</key>
 		<dict>
 			<key>hash</key>
@@ -2435,11 +2360,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			s8BgP7lM2uiHpVcwPvmEZwuE3f4=
+			TUxmjstVUOFZkzUBdhC8py2pvlQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			H0vNF5g3SLxWF6n4MUPQzxlqtSxr0hih7OEUOoj2f5Q=
+			N9zDY7hAy5HZMyYbdca2Iue0igCNIpRhzKESgj9Ea9I=
 			</data>
 		</dict>
 		<key>Headers/GPUImageToonFilter.h</key>
@@ -2528,17 +2453,6 @@
 			<key>hash2</key>
 			<data>
 			hjJzJqo1V3NzioKoh8RUxrv7ocAuPWwt42fJn9P+pxs=
-			</data>
-		</dict>
-		<key>Headers/GPUImageVibranceFilter.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			/eKIzJCL/BL5cOEQjlvCd/7cT/k=
-			</data>
-			<key>hash2</key>
-			<data>
-			duEO1fPezO0iwo2hMWP50ahLDViI6Uqu3UmijAfhI1g=
 			</data>
 		</dict>
 		<key>Headers/GPUImageVideoCamera.h</key>
@@ -2644,11 +2558,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			w8wgMwA2G5Ud8z6h52m895BM+Rc=
+			R0/ACD1+K7JSlm2BJjfVTa4Z+LU=
 			</data>
 			<key>hash2</key>
 			<data>
-			d3UP7o9fOSblIlqS49pJx5s+aq5oeI5A3bnM97Md0eY=
+			2s78k1ou/hrQ+/btMmSKO1GX/hH0oV4uaGcScKVpFyA=
 			</data>
 		</dict>
 	</dict>

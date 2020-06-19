@@ -17,7 +17,7 @@
         </config-file>
         <header-file src="src/ios/ImageFilter.h"/>
         <source-file src="src/ios/ImageFilter.m"/>
-        <framework src="lib/GPUImageFilterFramework.framework" custom="true"/>
+        <framework src="lib/GPUImage.framework" custom="true"/>
         <framework src="CoreGraphics.framework"/>
         <framework src="CoreImage.framework"/>
     </platform>
