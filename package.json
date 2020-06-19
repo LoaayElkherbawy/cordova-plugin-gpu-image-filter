@@ -16,8 +16,8 @@
     "ecosystem:cordova",
     "cordova-ios"
   ],
-  "author": "Dat Tran",
-  "license": "ISC",
+  "author": "Loaay El Kherbawy",
+  "license": "GNU",
   "bugs": {
     "url": "https://github.com/LoaayElkherbawy/cordova-plugin-gpu-image-filter/issues"
   },
