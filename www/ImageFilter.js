@@ -1,6 +1,7 @@
 var exec = require('cordova/exec');
 
 exports.applyEffect = function(args, success, error) {
+    console.log(args);
     exec(success, error, "ImageFilter", "applyEffect", [args.path, args.filter, args.quality, 1]);
 };
 
