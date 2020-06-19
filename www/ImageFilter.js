@@ -1,13 +1,13 @@
 var exec = require('cordova/exec');
 
-exports.applyEffect = function(path, filterType, compressQuality, isBase64Image, success, error) {
-    exec(success, error, "ImageFilter", "applyEffect", [path, filterType, compressQuality, isBase64Image]);
+exports.applyEffect = function(args, success, error) {
+    exec(success, error, "ImageFilter", "applyEffect", [args.path, args.filter, args.quality, 1]);
 };
 
-exports.applyEffectForReview = function(path, filterType, compressQuality, isBase64Image, success, error) {
-    exec(success, error, "ImageFilter", "applyEffectForReview", [path, filterType, compressQuality, isBase64Image]);
+exports.applyEffectForReview = function(args, success, error) {
+    exec(success, error, "ImageFilter", "applyEffectForReview", [args.path, args.filter, args.quality, 1]);
 };
 
-exports.applyEffectForThumbnail = function(path, filterType, compressQuality, isBase64Image, success, error) {
-    exec(success, error, "ImageFilter", "applyEffectForThumbnail", [path, filterType, compressQuality, isBase64Image]);
+exports.applyEffectForThumbnail = function(args, success, error) {
+    exec(success, error, "ImageFilter", "applyEffectForThumbnail", [args.path, args.filter, args.quality, 1]);
 };
