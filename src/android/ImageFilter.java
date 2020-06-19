@@ -24,6 +24,26 @@ import jp.co.cyberagent.android.gpuimage.*;
  * Created by Dat Tran on 3/7/17.
  */
 
+//private class GPUImageGLSurfaceView extends GLSurfaceView {
+//    public GPUImageGLSurfaceView(Context context) {
+//        super(context);
+//    }
+//
+//    public GPUImageGLSurfaceView(Context context, AttributeSet attrs) {
+//        super(context, attrs);
+//    }
+//
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        if (mForceSize != null) {
+//            super.onMeasure(MeasureSpec.makeMeasureSpec(mForceSize.width, MeasureSpec.EXACTLY),
+//                    MeasureSpec.makeMeasureSpec(mForceSize.height, MeasureSpec.EXACTLY));
+//        } else {
+//            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//        }
+//    }
+//}
+
 class MySize {
     public MySize(int width, int height) {
         this.width = width;
@@ -62,7 +82,11 @@ public class ImageFilter extends CordovaPlugin {
     private Bitmap currentPreviewImage;
     private Bitmap currentEditingImage;
     private Bitmap currentThumbnailImage;
+//    private static GPUImage editingGPUImage;
+//    private static GPUImage previewGPUImage;
+//    private static GPUImage thumbnailGPUImage;
 
+    //    private GLSurfaceView glSurfaceView;
     private static MySize screenSize;
 
     private Context context;
@@ -81,6 +105,9 @@ public class ImageFilter extends CordovaPlugin {
         int width = displayMetrics.widthPixels;
         screenSize = new MySize(width, height);
 
+//        glSurfaceView = new GLSurfaceView(context);
+
+//        editingGPUImage.setGLSurfaceView(glSurfaceView);
     }
 
     @Override
@@ -90,6 +117,7 @@ public class ImageFilter extends CordovaPlugin {
 
         if (action.equals("coolMethod")) {
             String message = args.getString(0);
+//            this.coolMethod(message, callbackContext);
             return true;
         }
         if (action.equals("applyEffect")
