@@ -108,7 +108,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
     [self validateInput:command];
 
     NSString *filterType = [command argumentAtIndex:1 withDefault:nil];
-    NSNumber *compressionQuality = [command argumentAtIndex:2 withDefault:@(0.5)];
+    NSNumber *compressionQuality = [command argumentAtIndex:3 withDefault:@(0.5)];
     NSNumber *weight = [command argumentAtIndex:2 withDefault:nil];
 
     [self filterImage:currentEditingImage filter:filterType compressionQuality:compressionQuality weight:weight completion:^(NSData *data) {
@@ -123,7 +123,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
     [self validateInput:command];
 
     NSString *filterType = [command argumentAtIndex:1 withDefault:nil];
-    NSNumber *compressionQuality = [command argumentAtIndex:2 withDefault:@(0.5)];
+    NSNumber *compressionQuality = [command argumentAtIndex:3 withDefault:@(0.5)];
     NSNumber *weight = [command argumentAtIndex:2 withDefault:nil];
 
     [self filterImage:currentPreviewImage filter:filterType compressionQuality:compressionQuality weight:weight completion:^(NSData *data) {

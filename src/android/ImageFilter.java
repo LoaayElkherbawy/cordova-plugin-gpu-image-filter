@@ -125,8 +125,8 @@ public class ImageFilter extends CordovaPlugin {
     || action.equals("applyEffectForThumbnail")) {
       String path = args.getString(0);
       String filterType = args.getString(1);
-      double compressQuality = args.getDouble(2);
-      double weight = args.getDouble(3);
+      double weight = args.getDouble(2);
+      double compressQuality = args.getDouble(3);
       int isBase64Image = args.getInt(4);
 
       if (action.equals("applyEffect"))
@@ -338,6 +338,9 @@ public class ImageFilter extends CordovaPlugin {
       case "blue":
       return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
       NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, weight);
+      default:
+      return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
+      NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
     }
   }
 
