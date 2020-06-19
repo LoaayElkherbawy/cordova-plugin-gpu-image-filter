@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-sts-image-filter" version="0.0.38" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>ImageFilter</name>
+    <js-module name="ImageFilter" src="www/ImageFilter.js">
+        <clobbers target="ImageFilter"/>
+    </js-module>
+    <platform name="ios">
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+            <string>Use camera to capture image</string>
+        </config-file>
+        <config-file parent="/*" target="config.xml">
+            <feature name="ImageFilter">
+                <param name="ios-package" value="ImageFilter"/>
+            </feature>
+        </config-file>
+        <header-file src="src/ios/ImageFilter.h"/>
+        <source-file src="src/ios/ImageFilter.m"/>
+        <framework src="CoreGraphics.framework"/>
+        <framework src="CoreImage.framework"/>
+    </platform>
+    <platform name="android">
+        <framework src="org.apache.commons:commons-lang3:3.4" />
+        <framework src="jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1" />
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="ImageFilter">
+                <param name="android-package" value="cordova.plugin.sts.image.filter.ImageFilter"/>
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+        <source-file src="src/android/ImageFilter.java" target-dir="src/cordova/plugin/sts/image/filter"/>
+    </platform>
+</plugin>
