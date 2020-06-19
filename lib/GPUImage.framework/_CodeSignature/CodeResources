@@ -6,15 +6,15 @@
 	<dict>
 		<key>.DS_Store</key>
 		<data>
-		Y/zzZVahlzqsXsKRy9ythZX/tmM=
+		D13jkW7p1TJeIRPVLe8TtGd9U7w=
 		</data>
 		<key>Headers/GLProgram.h</key>
 		<data>
 		mxV0e3ySbX5wXHtFNuXmzouYzhg=
 		</data>
-		<key>Headers/GPUImage.h</key>
+		<key>Headers/GPUImage3x3ConvolutionFilter.h</key>
 		<data>
-		HUrEgiB6fAbHKKOhgpEMG/+gBtU=
+		8dpkDAU1/CNJYbLCaopWMbtM9Wk=
 		</data>
 		<key>Headers/GPUImage3x3TextureSamplingFilter.h</key>
 		<data>
@@ -23,6 +23,10 @@
 		<key>Headers/GPUImageAdaptiveThresholdFilter.h</key>
 		<data>
 		j8TJ9SbuXJdDT6WeWbj67gedx0E=
+		</data>
+		<key>Headers/GPUImageAddBlendFilter.h</key>
+		<data>
+		ZqcgCRv7SDNUuNEWxmrvuwiJzs4=
 		</data>
 		<key>Headers/GPUImageAlphaBlendFilter.h</key>
 		<data>
@@ -35,6 +39,10 @@
 		<key>Headers/GPUImageAverageColor.h</key>
 		<data>
 		dm/LLHsaG/BYjGfGIJ+HVK85gjs=
+		</data>
+		<key>Headers/GPUImageAverageLuminanceThresholdFilter.h</key>
+		<data>
+		lfGX8xAQbjJzIZFxhCiFcAs7oy4=
 		</data>
 		<key>Headers/GPUImageBilateralFilter.h</key>
 		<data>
@@ -52,9 +60,21 @@
 		<data>
 		JCpOP/4GQX0uEOQsJec2tEythNE=
 		</data>
+		<key>Headers/GPUImageBulgeDistortionFilter.h</key>
+		<data>
+		tLPJjW6QBH8Y8+nMB40CyTOjrIk=
+		</data>
 		<key>Headers/GPUImageCGAColorspaceFilter.h</key>
 		<data>
 		ZSc1+9LEc7ylEXYx6hfUlepSwbc=
+		</data>
+		<key>Headers/GPUImageCannyEdgeDetectionFilter.h</key>
+		<data>
+		RXd0CN9fZ1Mc2U4WEbfE5iLtv+A=
+		</data>
+		<key>Headers/GPUImageChromaKeyBlendFilter.h</key>
+		<data>
+		KE7yvI9BPOrZgZYWrjuxCZ8pVtA=
 		</data>
 		<key>Headers/GPUImageChromaKeyFilter.h</key>
 		<data>
@@ -64,9 +84,17 @@
 		<data>
 		8DaTIfa9mz8RZ8c7294Th71SvHE=
 		</data>
+		<key>Headers/GPUImageColorBlendFilter.h</key>
+		<data>
+		dMwymUIfKAFm83KD8q37++zNBWY=
+		</data>
 		<key>Headers/GPUImageColorBurnBlendFilter.h</key>
 		<data>
 		ZqWjCbNVUyVMyPHDsysdFsXHcd8=
+		</data>
+		<key>Headers/GPUImageColorConversion.h</key>
+		<data>
+		85niOZxbuL7fm2tizONEMmbk5Go=
 		</data>
 		<key>Headers/GPUImageColorDodgeBlendFilter.h</key>
 		<data>
@@ -76,6 +104,10 @@
 		<data>
 		BhDhrQlF0AE2zWv8hOsay7yd4P8=
 		</data>
+		<key>Headers/GPUImageColorLocalBinaryPatternFilter.h</key>
+		<data>
+		9/Gb9ktJYdY40PRNmZK9G9kX0Qc=
+		</data>
 		<key>Headers/GPUImageColorMatrixFilter.h</key>
 		<data>
 		KRVW9ALkzhXgwAQQZ3WDkDENgr8=
@@ -84,6 +116,14 @@
 		<data>
 		WLiJEfbuwRZkJKU40m7s2pNU8z4=
 		</data>
+		<key>Headers/GPUImageColourFASTFeatureDetector.h</key>
+		<data>
+		GhE7L7L2F/nLxEjav9RYJLH+K1c=
+		</data>
+		<key>Headers/GPUImageColourFASTSamplingOperation.h</key>
+		<data>
+		/rRHQC73llgzJajpekh1DikWbVc=
+		</data>
 		<key>Headers/GPUImageContext.h</key>
 		<data>
 		crRuajGhAdPoHKDXPj2knPKAMQw=
@@ -91,6 +131,30 @@
 		<key>Headers/GPUImageContrastFilter.h</key>
 		<data>
 		yg9eIoi8mYMdPs664DRJY8fhCUE=
+		</data>
+		<key>Headers/GPUImageCropFilter.h</key>
+		<data>
+		GNsgNrng2NfpA6mZlL8mDRkO2Kk=
+		</data>
+		<key>Headers/GPUImageCrosshairGenerator.h</key>
+		<data>
+		XCPEj90Ghhdt475FjjXeQ17BWVE=
+		</data>
+		<key>Headers/GPUImageCrosshatchFilter.h</key>
+		<data>
+		X9+PdTNr6c59uDob6CaeLMBRh5w=
+		</data>
+		<key>Headers/GPUImageDarkenBlendFilter.h</key>
+		<data>
+		h2nCd0ZA9CpBgYaPiiCjWCXtjRQ=
+		</data>
+		<key>Headers/GPUImageDifferenceBlendFilter.h</key>
+		<data>
+		nQtt55uc8QDm8QAn4P3HCTlIsvA=
+		</data>
+		<key>Headers/GPUImageDilationFilter.h</key>
+		<data>
+		q1iT4ChRTeumN9ZpE6+lI+p82/E=
 		</data>
 		<key>Headers/GPUImageDirectionalNonMaximumSuppressionFilter.h</key>
 		<data>
@@ -103,6 +167,18 @@
 		<key>Headers/GPUImageDissolveBlendFilter.h</key>
 		<data>
 		9F9Ov/HWqsMm5Xt1IssGPfrl2mc=
+		</data>
+		<key>Headers/GPUImageDivideBlendFilter.h</key>
+		<data>
+		RXn7OCQZLsvKTHiJbyHU79mrDKg=
+		</data>
+		<key>Headers/GPUImageEmbossFilter.h</key>
+		<data>
+		ihJeR7pFprPC2NrkgDGozQBoSKg=
+		</data>
+		<key>Headers/GPUImageErosionFilter.h</key>
+		<data>
+		kUdV57f6Lqf+cDNKhffApoWk71U=
 		</data>
 		<key>Headers/GPUImageExclusionBlendFilter.h</key>
 		<data>
@@ -132,6 +208,10 @@
 		<data>
 		g8OwgwDaWscuTU8NSvFx3mW3Kyc=
 		</data>
+		<key>Headers/GPUImageFourInputFilter.h</key>
+		<data>
+		wi/A840uTQSq9r58rK6XxY2JrJQ=
+		</data>
 		<key>Headers/GPUImageFramebuffer.h</key>
 		<data>
 		IEeW8WJNFRGkd+ahOeP3W132M84=
@@ -148,6 +228,10 @@
 		<data>
 		QXztmd+0AxvWQUgZGf/h/F5ogfA=
 		</data>
+		<key>Headers/GPUImageGaussianBlurFilter.h</key>
+		<data>
+		7AyTt2ib3nefJBRgP9x0zMfaN7I=
+		</data>
 		<key>Headers/GPUImageGaussianBlurPositionFilter.h</key>
 		<data>
 		LPzQm8OikBgVvykqWgnGpCRjDeI=
@@ -155,6 +239,10 @@
 		<key>Headers/GPUImageGaussianSelectiveBlurFilter.h</key>
 		<data>
 		/JLdtp0oTNQDPqd78oh2Z6dRIQE=
+		</data>
+		<key>Headers/GPUImageGlassSphereFilter.h</key>
+		<data>
+		xNuoKVEKoDLca9saZMbO9t4O5nE=
 		</data>
 		<key>Headers/GPUImageGrayscaleFilter.h</key>
 		<data>
@@ -164,6 +252,14 @@
 		<data>
 		XAU4XGRlYmJJsdSYJv7DeCZyBaY=
 		</data>
+		<key>Headers/GPUImageHalftoneFilter.h</key>
+		<data>
+		Pr8rL4hd3Cy4Dk9j/sc+h1aDS4k=
+		</data>
+		<key>Headers/GPUImageHardLightBlendFilter.h</key>
+		<data>
+		jx/UK9UYuNtco7xUWs4u3jgihAs=
+		</data>
 		<key>Headers/GPUImageHarrisCornerDetectionFilter.h</key>
 		<data>
 		2VBXLprDQkt75kNdsb2qiZMVBhI=
@@ -172,13 +268,13 @@
 		<data>
 		MKukhAyBDvtDmWfcqBB58cLUUtc=
 		</data>
+		<key>Headers/GPUImageHighPassFilter.h</key>
+		<data>
+		a6UTlsnfcqFwl7x5TmrswtX6TbQ=
+		</data>
 		<key>Headers/GPUImageHighlightShadowFilter.h</key>
 		<data>
 		RXF9rkKoFgO1yEf1lGYwnYVWaKA=
-		</data>
-		<key>Headers/GPUImageHighlightShadowTintFilter.h</key>
-		<data>
-		Uergshwv7pnokexqvGdPEI+ROZU=
 		</data>
 		<key>Headers/GPUImageHistogramEqualizationFilter.h</key>
 		<data>
@@ -192,9 +288,33 @@
 		<data>
 		pkT5KjxmW2JHBN0x1HaP4YPKIz8=
 		</data>
+		<key>Headers/GPUImageHoughTransformLineDetector.h</key>
+		<data>
+		wqP/sR0RJZhJw7q9kueAKfT4eIQ=
+		</data>
+		<key>Headers/GPUImageHueBlendFilter.h</key>
+		<data>
+		Gpv7ymmIGv+kMAvVjFn8/nzfGeo=
+		</data>
 		<key>Headers/GPUImageHueFilter.h</key>
 		<data>
 		KLyL+EyEdlFqtY6W60F0u++ky40=
+		</data>
+		<key>Headers/GPUImageJFAVoronoiFilter.h</key>
+		<data>
+		3ui/efguz79qgvg0D6fqjAgh2Aw=
+		</data>
+		<key>Headers/GPUImageKuwaharaFilter.h</key>
+		<data>
+		fykYwSfuURCv41hLJGh5qBx057Q=
+		</data>
+		<key>Headers/GPUImageKuwaharaRadius3Filter.h</key>
+		<data>
+		nV+ZGOYZuJ3439z9GzV7yNfBHWg=
+		</data>
+		<key>Headers/GPUImageLanczosResamplingFilter.h</key>
+		<data>
+		+I/Oeo4QqenPG3rtjq44mj3ERB4=
 		</data>
 		<key>Headers/GPUImageLaplacianFilter.h</key>
 		<data>
@@ -203,6 +323,22 @@
 		<key>Headers/GPUImageLevelsFilter.h</key>
 		<data>
 		Gza69S6pgnbnZlwHKqjYaYEM/Ls=
+		</data>
+		<key>Headers/GPUImageLightenBlendFilter.h</key>
+		<data>
+		hayBBt+FLU4U7NCnluqr5rS7xRk=
+		</data>
+		<key>Headers/GPUImageLineGenerator.h</key>
+		<data>
+		NQpyfhnEGd8NCcsAUYhjGqLSsv0=
+		</data>
+		<key>Headers/GPUImageLinearBurnBlendFilter.h</key>
+		<data>
+		MSZ5D8DfxhhcWSBE/dbyqIF1WXU=
+		</data>
+		<key>Headers/GPUImageLocalBinaryPatternFilter.h</key>
+		<data>
+		CoJvGvgmepvIE7xfBTmakrHwP/4=
 		</data>
 		<key>Headers/GPUImageLookupFilter.h</key>
 		<data>
@@ -216,6 +352,10 @@
 		<data>
 		9bubuorseeL3CSW6/wDssVl51b0=
 		</data>
+		<key>Headers/GPUImageLuminanceThresholdFilter.h</key>
+		<data>
+		jriqFPHK7oD8U5a4NlRe5DAaCrE=
+		</data>
 		<key>Headers/GPUImageLuminosity.h</key>
 		<data>
 		D1xJBSH8RQe0r+tz433v5cooA4g=
@@ -223,6 +363,10 @@
 		<key>Headers/GPUImageLuminosityBlendFilter.h</key>
 		<data>
 		K9StpAOWlbVp000MEMTjrjPICtw=
+		</data>
+		<key>Headers/GPUImageMaskFilter.h</key>
+		<data>
+		4me/bbKktSzR2tf91KFrCAFKpDw=
 		</data>
 		<key>Headers/GPUImageMedianFilter.h</key>
 		<data>
@@ -235,6 +379,14 @@
 		<key>Headers/GPUImageMonochromeFilter.h</key>
 		<data>
 		w7+SR2N75c+NS0vIJnTpxjlcyCo=
+		</data>
+		<key>Headers/GPUImageMosaicFilter.h</key>
+		<data>
+		4L1WsMRVAAen9AfkNC+gWJg+l5s=
+		</data>
+		<key>Headers/GPUImageMotionBlurFilter.h</key>
+		<data>
+		CxYZGDOwU5iVCUhz9pASd8U9E3k=
 		</data>
 		<key>Headers/GPUImageMotionDetector.h</key>
 		<data>
@@ -264,17 +416,45 @@
 		<data>
 		RmDs6FthM8vOgj/yit6NluIJgVU=
 		</data>
+		<key>Headers/GPUImageNormalBlendFilter.h</key>
+		<data>
+		o+1YuPUIGNrBx31AftBi4v7uBsI=
+		</data>
+		<key>Headers/GPUImageOpacityFilter.h</key>
+		<data>
+		PWUf8xzWuDzIl6ozfDwkWo29bAY=
+		</data>
+		<key>Headers/GPUImageOpeningFilter.h</key>
+		<data>
+		f+ZpSToNCGDCmLBneSEM3GAGFkg=
+		</data>
 		<key>Headers/GPUImageOutput.h</key>
 		<data>
 		m3vHLviKj6yjen2H09FULLRYCCo=
 		</data>
-		<key>Headers/GPUImagePicture+TextureSubimage.h</key>
+		<key>Headers/GPUImageOverlayBlendFilter.h</key>
 		<data>
-		MTD+sWYHF3HDKTXOBU/4k+YtiPQ=
+		85PVdX0FilNUyQTKvAwCAs+CpgI=
+		</data>
+		<key>Headers/GPUImageParallelCoordinateLineTransformFilter.h</key>
+		<data>
+		pDJc3qAt8OZkni0KmcSGGZzeHdw=
+		</data>
+		<key>Headers/GPUImagePerlinNoiseFilter.h</key>
+		<data>
+		LEZfIm8tBunGxiLLQ2HpmDe2YFo=
 		</data>
 		<key>Headers/GPUImagePicture.h</key>
 		<data>
 		YXNkWRwAyvK6BCCdUpyOohow230=
+		</data>
+		<key>Headers/GPUImagePinchDistortionFilter.h</key>
+		<data>
+		E5LEMQvCRVqxd6gsBT+AtZCkBUk=
+		</data>
+		<key>Headers/GPUImagePixellateFilter.h</key>
+		<data>
+		FHcv8OCM25q+A1skTZrcCx/Zu3Q=
 		</data>
 		<key>Headers/GPUImagePixellatePositionFilter.h</key>
 		<data>
@@ -284,13 +464,33 @@
 		<data>
 		lHLoDo44rTuaPiUPk4ND/XuE/qI=
 		</data>
+		<key>Headers/GPUImagePolarPixellateFilter.h</key>
+		<data>
+		5aGVWSvzWEzu4viAYSY/9oiE3uI=
+		</data>
+		<key>Headers/GPUImagePolkaDotFilter.h</key>
+		<data>
+		SrpQ4VGsvj8g6sOzDJg/1KkQbgk=
+		</data>
 		<key>Headers/GPUImagePosterizeFilter.h</key>
 		<data>
 		cKYi3zjWrxNTAxMEKOr2dzuHkmc=
 		</data>
+		<key>Headers/GPUImagePrewittEdgeDetectionFilter.h</key>
+		<data>
+		N8toPrFwQ2Ugw+k+3OZuvSH/rM8=
+		</data>
+		<key>Headers/GPUImageRGBClosingFilter.h</key>
+		<data>
+		0kDf1NDSmJa9qTXWXRJn0rqzVZM=
+		</data>
 		<key>Headers/GPUImageRGBDilationFilter.h</key>
 		<data>
 		ZR3Z5CpVv/S1H1a6U4H92d1XNuY=
+		</data>
+		<key>Headers/GPUImageRGBErosionFilter.h</key>
+		<data>
+		UGNRsq5EKscoJMw5AWmpNXYWTdM=
 		</data>
 		<key>Headers/GPUImageRGBFilter.h</key>
 		<data>
@@ -299,6 +499,22 @@
 		<key>Headers/GPUImageRGBOpeningFilter.h</key>
 		<data>
 		a/PEfHNhIatpSnplj0x5m+Z/i0M=
+		</data>
+		<key>Headers/GPUImageRawDataInput.h</key>
+		<data>
+		bYPSXj/dY/MXY9pd631dd+SlD5Q=
+		</data>
+		<key>Headers/GPUImageRawDataOutput.h</key>
+		<data>
+		HI3YzUw4Cdi8JWb2rjQJQ/6EFew=
+		</data>
+		<key>Headers/GPUImageSaturationBlendFilter.h</key>
+		<data>
+		sVIc5ZOIrLTAYaM6iYDvrdQmllM=
+		</data>
+		<key>Headers/GPUImageSaturationFilter.h</key>
+		<data>
+		ArjLRNME7pbUYXWMMariBasSf2A=
 		</data>
 		<key>Headers/GPUImageScreenBlendFilter.h</key>
 		<data>
@@ -316,21 +532,69 @@
 		<data>
 		pa7nhtULhfoyLOgoGvsm/+uhcfc=
 		</data>
+		<key>Headers/GPUImageSingleComponentGaussianBlurFilter.h</key>
+		<data>
+		7/jSb9ceaMbbLIPMRzHvaXhXNXo=
+		</data>
+		<key>Headers/GPUImageSketchFilter.h</key>
+		<data>
+		kh4W2i34QVaPpUxLoB7QhmiZBMM=
+		</data>
+		<key>Headers/GPUImageSmoothToonFilter.h</key>
+		<data>
+		LBI7rJgJxalx0XL08kyxrw2i7dU=
+		</data>
+		<key>Headers/GPUImageSobelEdgeDetectionFilter.h</key>
+		<data>
+		rpWNWm5HHwlSq1ZQ1vaUiHShjhk=
+		</data>
 		<key>Headers/GPUImageSoftEleganceFilter.h</key>
 		<data>
 		NSpPLMjyIznNBnV+WlEbNU/JCrQ=
+		</data>
+		<key>Headers/GPUImageSoftLightBlendFilter.h</key>
+		<data>
+		LCmUXDPv2Y/1XTjM8l3xkfkTgjQ=
+		</data>
+		<key>Headers/GPUImageSolarizeFilter.h</key>
+		<data>
+		maBeg9l2rrPl76DuGl12ZFoyiro=
 		</data>
 		<key>Headers/GPUImageSolidColorGenerator.h</key>
 		<data>
 		obElPdknS4/M5NllFW4ou0UqW6k=
 		</data>
+		<key>Headers/GPUImageSourceOverBlendFilter.h</key>
+		<data>
+		dZ+4Jmo2+RTUBZ1ZwvOqklAUXNs=
+		</data>
+		<key>Headers/GPUImageSphereRefractionFilter.h</key>
+		<data>
+		/LGpL2OyUYK/pDU/r6rtolh+9HI=
+		</data>
 		<key>Headers/GPUImageStillCamera.h</key>
 		<data>
 		b1iHai/5pKKMH5szpPv1a8TqvHk=
 		</data>
+		<key>Headers/GPUImageStretchDistortionFilter.h</key>
+		<data>
+		dM2Pu4e4jVqbGEB/eTwojOVH/Oo=
+		</data>
+		<key>Headers/GPUImageSubtractBlendFilter.h</key>
+		<data>
+		6eceNigAuB1MFFkkgb9wqH1cxts=
+		</data>
+		<key>Headers/GPUImageSwirlFilter.h</key>
+		<data>
+		W1EBsPkwgjRQ4g29xItEnYCj4m4=
+		</data>
 		<key>Headers/GPUImageTextureInput.h</key>
 		<data>
 		ZpUsaEiobJqk/ZWd2p34uo0Myk8=
+		</data>
+		<key>Headers/GPUImageTextureOutput.h</key>
+		<data>
+		FBr341QKXjYfCZRp9/tRKr7hPss=
 		</data>
 		<key>Headers/GPUImageThreeInputFilter.h</key>
 		<data>
@@ -340,9 +604,17 @@
 		<data>
 		8XzR1Sd3L8iYTlhq4r1Iz+VQvOw=
 		</data>
+		<key>Headers/GPUImageThresholdSketchFilter.h</key>
+		<data>
+		qoUqrEAH1WyTko9oJYejdFlJ4vg=
+		</data>
 		<key>Headers/GPUImageThresholdedNonMaximumSuppressionFilter.h</key>
 		<data>
 		qlRa/0ARLN0BmYYIfBBscRL/laA=
+		</data>
+		<key>Headers/GPUImageTiltShiftFilter.h</key>
+		<data>
+		2e6BVWefqZWB3q/boU0T3pywASk=
 		</data>
 		<key>Headers/GPUImageToneCurveFilter.h</key>
 		<data>
@@ -351,6 +623,14 @@
 		<key>Headers/GPUImageToonFilter.h</key>
 		<data>
 		IdFNHeEyRIrIFe7/BewlogHt6P8=
+		</data>
+		<key>Headers/GPUImageTransformFilter.h</key>
+		<data>
+		hYC1or0IxZQGx6tlTlsWGIEAGtg=
+		</data>
+		<key>Headers/GPUImageTwoInputCrossTextureSamplingFilter.h</key>
+		<data>
+		tTeOrYRvFnN+JRl1Zl1Pnx7WksM=
 		</data>
 		<key>Headers/GPUImageTwoInputFilter.h</key>
 		<data>
@@ -368,9 +648,9 @@
 		<data>
 		gst311gU8Bppy9Y9ZJu1qsP15ig=
 		</data>
-		<key>Headers/GPUImageVibranceFilter.h</key>
+		<key>Headers/GPUImageUnsharpMaskFilter.h</key>
 		<data>
-		/eKIzJCL/BL5cOEQjlvCd/7cT/k=
+		tvbQ+h7cIOa1obTOfERZEKlMLgc=
 		</data>
 		<key>Headers/GPUImageVideoCamera.h</key>
 		<data>
@@ -380,6 +660,14 @@
 		<data>
 		JttiO2LRvk7193e1j1cJBYNlqwc=
 		</data>
+		<key>Headers/GPUImageVignetteFilter.h</key>
+		<data>
+		6/RMBS0wP+W+Qrdw9XbQFwR+A2U=
+		</data>
+		<key>Headers/GPUImageVoronoiConsumerFilter.h</key>
+		<data>
+		uRq8kWqFIpZtAzB8vM+lmf3/NqE=
+		</data>
 		<key>Headers/GPUImageWeakPixelInclusionFilter.h</key>
 		<data>
 		7dtwUyahMxEVLznJA5pilE+TxIE=
@@ -387,6 +675,14 @@
 		<key>Headers/GPUImageWhiteBalanceFilter.h</key>
 		<data>
 		0zBzM5GkMhSrWwtB//vJZzLVYDY=
+		</data>
+		<key>Headers/GPUImageXYDerivativeFilter.h</key>
+		<data>
+		s3VqLQtQvt8iRXqYCetH4F4V3/E=
+		</data>
+		<key>Headers/GPUImageZoomBlurFilter.h</key>
+		<data>
+		w0V2pYVUIFam3/3fhAX2qNtesCg=
 		</data>
 		<key>Headers/GPUImageiOSBlurFilter.h</key>
 		<data>
@@ -414,15 +710,15 @@
 			cFNmhWSDusMHEdqpJfIR7brb3prKF57vcZvlycZdoHI=
 			</data>
 		</dict>
-		<key>Headers/GPUImage.h</key>
+		<key>Headers/GPUImage3x3ConvolutionFilter.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			HUrEgiB6fAbHKKOhgpEMG/+gBtU=
+			8dpkDAU1/CNJYbLCaopWMbtM9Wk=
 			</data>
 			<key>hash2</key>
 			<data>
-			gCGjyabgeFTu22qH526YkzarVuRd9yaX2OvJJ+Uev8E=
+			xW5JKVXtLwSIAOrNgUXYjc/T9F5+KEHtYly/uZYArp8=
 			</data>
 		</dict>
 		<key>Headers/GPUImage3x3TextureSamplingFilter.h</key>
@@ -445,6 +741,17 @@
 			<key>hash2</key>
 			<data>
 			JCjHdq5EZY9TwTT1tO6Nrn0wWoNtN4QuwjM2LYKuzUs=
+			</data>
+		</dict>
+		<key>Headers/GPUImageAddBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ZqcgCRv7SDNUuNEWxmrvuwiJzs4=
+			</data>
+			<key>hash2</key>
+			<data>
+			7gmZKD4J/fSK0RH73+78MMXi2pGR/lX39LxhYuPIlkk=
 			</data>
 		</dict>
 		<key>Headers/GPUImageAlphaBlendFilter.h</key>
@@ -478,6 +785,17 @@
 			<key>hash2</key>
 			<data>
 			Pf20DWn4dVHN+h8pwCk3C92z9OgfdL7vGnXnIBY6LVM=
+			</data>
+		</dict>
+		<key>Headers/GPUImageAverageLuminanceThresholdFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			lfGX8xAQbjJzIZFxhCiFcAs7oy4=
+			</data>
+			<key>hash2</key>
+			<data>
+			mdN2HqPP0Iy1htv3zhyvCc2JufGN0pzoU/qw3uTcs78=
 			</data>
 		</dict>
 		<key>Headers/GPUImageBilateralFilter.h</key>
@@ -524,6 +842,17 @@
 			yECIjMLc6eZvqNulDXpA3kaUruGk/heKH9aFvRsAZVA=
 			</data>
 		</dict>
+		<key>Headers/GPUImageBulgeDistortionFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			tLPJjW6QBH8Y8+nMB40CyTOjrIk=
+			</data>
+			<key>hash2</key>
+			<data>
+			s/SegywwWdr1RgFqmEsPnRtWvhjBZNb1+yNzL8YgsEg=
+			</data>
+		</dict>
 		<key>Headers/GPUImageCGAColorspaceFilter.h</key>
 		<dict>
 			<key>hash</key>
@@ -533,6 +862,28 @@
 			<key>hash2</key>
 			<data>
 			/wXNLUCQLKq6PkKDK5WzjS2EfjjsQLYQFGQTZI+0xp8=
+			</data>
+		</dict>
+		<key>Headers/GPUImageCannyEdgeDetectionFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			RXd0CN9fZ1Mc2U4WEbfE5iLtv+A=
+			</data>
+			<key>hash2</key>
+			<data>
+			tTJWe4zmN05lZmS4oOUx9CzBkknlq1xQebsvMK+FWfE=
+			</data>
+		</dict>
+		<key>Headers/GPUImageChromaKeyBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			KE7yvI9BPOrZgZYWrjuxCZ8pVtA=
+			</data>
+			<key>hash2</key>
+			<data>
+			geCwMVNljHatBw4YnXFM39Tgg7X1ql80uf3dQoZ8tSE=
 			</data>
 		</dict>
 		<key>Headers/GPUImageChromaKeyFilter.h</key>
@@ -557,6 +908,17 @@
 			AKU1tHPVrLaDc9Om3PyocfDGl+9EfE+FkrlxwfGal6M=
 			</data>
 		</dict>
+		<key>Headers/GPUImageColorBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			dMwymUIfKAFm83KD8q37++zNBWY=
+			</data>
+			<key>hash2</key>
+			<data>
+			w+9krqv5lm0xceQzDfGv6SvE5xs7uQ5RlzfQAdd22EU=
+			</data>
+		</dict>
 		<key>Headers/GPUImageColorBurnBlendFilter.h</key>
 		<dict>
 			<key>hash</key>
@@ -566,6 +928,17 @@
 			<key>hash2</key>
 			<data>
 			tL4oNJsSrtqk0uuYJhz6F3vd3zb5I6yvXPbJDOUsn+A=
+			</data>
+		</dict>
+		<key>Headers/GPUImageColorConversion.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			85niOZxbuL7fm2tizONEMmbk5Go=
+			</data>
+			<key>hash2</key>
+			<data>
+			1eiW3wJuxOGdPQh7phrLdYIID/tXbV9HQoza42P9Sd8=
 			</data>
 		</dict>
 		<key>Headers/GPUImageColorDodgeBlendFilter.h</key>
@@ -590,6 +963,17 @@
 			YzIi7FgNtWJvY7UadHf73R+UJGrIBYMUDsnEhXrALmg=
 			</data>
 		</dict>
+		<key>Headers/GPUImageColorLocalBinaryPatternFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9/Gb9ktJYdY40PRNmZK9G9kX0Qc=
+			</data>
+			<key>hash2</key>
+			<data>
+			g12nU5fmJP26jKOflrDNLqy1D7mz0te3pV0t4hRQLLs=
+			</data>
+		</dict>
 		<key>Headers/GPUImageColorMatrixFilter.h</key>
 		<dict>
 			<key>hash</key>
@@ -612,6 +996,28 @@
 			JjNjSXZQDauyyyJgozL1X2j47VP9+PyplnrngANUZtc=
 			</data>
 		</dict>
+		<key>Headers/GPUImageColourFASTFeatureDetector.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GhE7L7L2F/nLxEjav9RYJLH+K1c=
+			</data>
+			<key>hash2</key>
+			<data>
+			XMBOXATlzFJPD4KMuHOajY+wLHYmvMuRn1isVcsuV+0=
+			</data>
+		</dict>
+		<key>Headers/GPUImageColourFASTSamplingOperation.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/rRHQC73llgzJajpekh1DikWbVc=
+			</data>
+			<key>hash2</key>
+			<data>
+			qlqgfFU/8J9oZakhbm5XGQyUJJcY5lI82b/jdRDoct0=
+			</data>
+		</dict>
 		<key>Headers/GPUImageContext.h</key>
 		<dict>
 			<key>hash</key>
@@ -632,6 +1038,72 @@
 			<key>hash2</key>
 			<data>
 			0R1BTRgbARY9QRcxVLfSDtpd3gaw4LuB+aiixCvk594=
+			</data>
+		</dict>
+		<key>Headers/GPUImageCropFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GNsgNrng2NfpA6mZlL8mDRkO2Kk=
+			</data>
+			<key>hash2</key>
+			<data>
+			kcGtgvGutsxitzptDWfaFTXBGAsXoDsd233MVZjcPrM=
+			</data>
+		</dict>
+		<key>Headers/GPUImageCrosshairGenerator.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			XCPEj90Ghhdt475FjjXeQ17BWVE=
+			</data>
+			<key>hash2</key>
+			<data>
+			gT23uANRS7CGGyQW2AOydCdcC5sn0TEMlnc2Kwx7FKg=
+			</data>
+		</dict>
+		<key>Headers/GPUImageCrosshatchFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			X9+PdTNr6c59uDob6CaeLMBRh5w=
+			</data>
+			<key>hash2</key>
+			<data>
+			vjrwI6OkrAz4SafSmeRdbNKNlM7kSre6hNXZGtmZvyU=
+			</data>
+		</dict>
+		<key>Headers/GPUImageDarkenBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			h2nCd0ZA9CpBgYaPiiCjWCXtjRQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			rmgMHzR/bDFTmL+v3NYIBDVdQiLxWJxifazlvhASvnk=
+			</data>
+		</dict>
+		<key>Headers/GPUImageDifferenceBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			nQtt55uc8QDm8QAn4P3HCTlIsvA=
+			</data>
+			<key>hash2</key>
+			<data>
+			nEqCeHYvdyuMkFu7YrCrXhXzV83fvTrPjyGKcLZfAkg=
+			</data>
+		</dict>
+		<key>Headers/GPUImageDilationFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			q1iT4ChRTeumN9ZpE6+lI+p82/E=
+			</data>
+			<key>hash2</key>
+			<data>
+			QvhTeaaqUez5RfDJMS8vYpdepiHpSKIdg4kKywJewg4=
 			</data>
 		</dict>
 		<key>Headers/GPUImageDirectionalNonMaximumSuppressionFilter.h</key>
@@ -665,6 +1137,39 @@
 			<key>hash2</key>
 			<data>
 			MNLt4fDp6XW6DqRDI85xMY1R/cKWUtkYaZTZ4pQuvpI=
+			</data>
+		</dict>
+		<key>Headers/GPUImageDivideBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			RXn7OCQZLsvKTHiJbyHU79mrDKg=
+			</data>
+			<key>hash2</key>
+			<data>
+			eCt2yGUiNGSa4GgdpJc4TI+vTrzfRTpj2fm5x2z/jxk=
+			</data>
+		</dict>
+		<key>Headers/GPUImageEmbossFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ihJeR7pFprPC2NrkgDGozQBoSKg=
+			</data>
+			<key>hash2</key>
+			<data>
+			3ZNWgV1K5avYl8YlY+CsJ8C3xNmJ3hhSGjg9d/jwNaw=
+			</data>
+		</dict>
+		<key>Headers/GPUImageErosionFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kUdV57f6Lqf+cDNKhffApoWk71U=
+			</data>
+			<key>hash2</key>
+			<data>
+			VN+FfhbJbATpqb/Zt36Q6I7Av1NlXPu8ixGtOww45bU=
 			</data>
 		</dict>
 		<key>Headers/GPUImageExclusionBlendFilter.h</key>
@@ -744,6 +1249,17 @@
 			3VS3ydBqsnaNvP97vVq5t+f7V9iEPaPAY3tnwvXleVI=
 			</data>
 		</dict>
+		<key>Headers/GPUImageFourInputFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			wi/A840uTQSq9r58rK6XxY2JrJQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			4K2xLfLw9Tiqe0cjNKRow0LFIXhwoHEv8KgkuRDm9JQ=
+			</data>
+		</dict>
 		<key>Headers/GPUImageFramebuffer.h</key>
 		<dict>
 			<key>hash</key>
@@ -788,6 +1304,17 @@
 			d6yphF+YkjQyapKF4p0v1sehxDq9JdNJA9rdG6jwIRE=
 			</data>
 		</dict>
+		<key>Headers/GPUImageGaussianBlurFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			7AyTt2ib3nefJBRgP9x0zMfaN7I=
+			</data>
+			<key>hash2</key>
+			<data>
+			BfvGEIx+1dlAhgwIDHIlj1LxfmCnQMxOsX4xqfHmRLo=
+			</data>
+		</dict>
 		<key>Headers/GPUImageGaussianBlurPositionFilter.h</key>
 		<dict>
 			<key>hash</key>
@@ -808,6 +1335,17 @@
 			<key>hash2</key>
 			<data>
 			5dvYm9rz3CrntpGwHQ9Vje5caa74MU4nxwp9vZlsoa8=
+			</data>
+		</dict>
+		<key>Headers/GPUImageGlassSphereFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			xNuoKVEKoDLca9saZMbO9t4O5nE=
+			</data>
+			<key>hash2</key>
+			<data>
+			HLx07OX1tOjkv9AgOZ37yVaIYqSa5+1GeHmwm7JPnbk=
 			</data>
 		</dict>
 		<key>Headers/GPUImageGrayscaleFilter.h</key>
@@ -832,6 +1370,28 @@
 			/QPQd9EBYsMD3Je+yMz3mwXN3mqoGpbIJgjyLDiJZgI=
 			</data>
 		</dict>
+		<key>Headers/GPUImageHalftoneFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Pr8rL4hd3Cy4Dk9j/sc+h1aDS4k=
+			</data>
+			<key>hash2</key>
+			<data>
+			0rmSnGbEGIZCqfb7C41uZjOl4AH1okMgXitgsX7p+lY=
+			</data>
+		</dict>
+		<key>Headers/GPUImageHardLightBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jx/UK9UYuNtco7xUWs4u3jgihAs=
+			</data>
+			<key>hash2</key>
+			<data>
+			k0z2X6+IzW8YoznhQuWaw6H5HLeJ81a+8lKBOK9zJdU=
+			</data>
+		</dict>
 		<key>Headers/GPUImageHarrisCornerDetectionFilter.h</key>
 		<dict>
 			<key>hash</key>
@@ -854,6 +1414,17 @@
 			BtRO2EkDifu/sIz6DyA3UPMUD/qEVmPnLujzfTKcJQU=
 			</data>
 		</dict>
+		<key>Headers/GPUImageHighPassFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			a6UTlsnfcqFwl7x5TmrswtX6TbQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			o3gWBrT/dajIE/+vYmETUSxpjfADVsfbz7y8j2a+YdA=
+			</data>
+		</dict>
 		<key>Headers/GPUImageHighlightShadowFilter.h</key>
 		<dict>
 			<key>hash</key>
@@ -863,17 +1434,6 @@
 			<key>hash2</key>
 			<data>
 			4w2o4nmX6zOpST3S8mU8dK4iZJwQkNcZhr53zaIltK0=
-			</data>
-		</dict>
-		<key>Headers/GPUImageHighlightShadowTintFilter.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			Uergshwv7pnokexqvGdPEI+ROZU=
-			</data>
-			<key>hash2</key>
-			<data>
-			+hk1PeOqcKNlWlIbTdnBglaC7elsB92TfAmD3a2GWCc=
 			</data>
 		</dict>
 		<key>Headers/GPUImageHistogramEqualizationFilter.h</key>
@@ -909,6 +1469,28 @@
 			TH+SyM7VDsjCvWytqun/L+RNMb/yW4w46qAfQJdC9mc=
 			</data>
 		</dict>
+		<key>Headers/GPUImageHoughTransformLineDetector.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			wqP/sR0RJZhJw7q9kueAKfT4eIQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			pPG/kQV3hj+bIftMmZjMZBoD29du0Q8iCiurodqgGDk=
+			</data>
+		</dict>
+		<key>Headers/GPUImageHueBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Gpv7ymmIGv+kMAvVjFn8/nzfGeo=
+			</data>
+			<key>hash2</key>
+			<data>
+			kl8ox+bvHqgvOUyFz2QetP0TJHHYVe8XEXPWDa6QqXY=
+			</data>
+		</dict>
 		<key>Headers/GPUImageHueFilter.h</key>
 		<dict>
 			<key>hash</key>
@@ -918,6 +1500,50 @@
 			<key>hash2</key>
 			<data>
 			y0o6JOPH/m/bB9uNlglh1MevHb6WH6es9hkaHIL32y0=
+			</data>
+		</dict>
+		<key>Headers/GPUImageJFAVoronoiFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			3ui/efguz79qgvg0D6fqjAgh2Aw=
+			</data>
+			<key>hash2</key>
+			<data>
+			2JBWIFLqAomN1KrRTWPmQIDiiJe+3FO+t++0+WGxFfs=
+			</data>
+		</dict>
+		<key>Headers/GPUImageKuwaharaFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			fykYwSfuURCv41hLJGh5qBx057Q=
+			</data>
+			<key>hash2</key>
+			<data>
+			sA9k/oTgFK0Uh9Dwrm9QMzvWmkpAT0IzN55j46IA4kI=
+			</data>
+		</dict>
+		<key>Headers/GPUImageKuwaharaRadius3Filter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			nV+ZGOYZuJ3439z9GzV7yNfBHWg=
+			</data>
+			<key>hash2</key>
+			<data>
+			BXRlHK84VKTiMfwvlN/9sPsMrs54z4nngEh3dEVnT/Y=
+			</data>
+		</dict>
+		<key>Headers/GPUImageLanczosResamplingFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			+I/Oeo4QqenPG3rtjq44mj3ERB4=
+			</data>
+			<key>hash2</key>
+			<data>
+			nQo96CIDe70PPP87+55eqs6vsXAVYG6Rs6kesPKSHFM=
 			</data>
 		</dict>
 		<key>Headers/GPUImageLaplacianFilter.h</key>
@@ -940,6 +1566,50 @@
 			<key>hash2</key>
 			<data>
 			aXA3DT9RZIr1T8Lb0MCEZtLkiHvmIZg+CBoO6J6NzLY=
+			</data>
+		</dict>
+		<key>Headers/GPUImageLightenBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hayBBt+FLU4U7NCnluqr5rS7xRk=
+			</data>
+			<key>hash2</key>
+			<data>
+			ET8UyfBJmI72Y0s5rM8klqi/Jj+k8wrgia73aZEmOKE=
+			</data>
+		</dict>
+		<key>Headers/GPUImageLineGenerator.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			NQpyfhnEGd8NCcsAUYhjGqLSsv0=
+			</data>
+			<key>hash2</key>
+			<data>
+			MRGJih9v1PrQu3DCpQahMSa9E/GXpIXk10vMwJfqY24=
+			</data>
+		</dict>
+		<key>Headers/GPUImageLinearBurnBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			MSZ5D8DfxhhcWSBE/dbyqIF1WXU=
+			</data>
+			<key>hash2</key>
+			<data>
+			dIOIlj7F3HMneuRTcj5d9sNyw0qwwN0gS0jLl3PD/Ro=
+			</data>
+		</dict>
+		<key>Headers/GPUImageLocalBinaryPatternFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CoJvGvgmepvIE7xfBTmakrHwP/4=
+			</data>
+			<key>hash2</key>
+			<data>
+			R0t/ozlZz3TZNGjRJpNzuKLF7bax6SJwHhw8J5sYSXU=
 			</data>
 		</dict>
 		<key>Headers/GPUImageLookupFilter.h</key>
@@ -975,6 +1645,17 @@
 			/NchnrcZU2Ddo9+BtBg71GduPyrLT9To5nlH7E4v7dA=
 			</data>
 		</dict>
+		<key>Headers/GPUImageLuminanceThresholdFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jriqFPHK7oD8U5a4NlRe5DAaCrE=
+			</data>
+			<key>hash2</key>
+			<data>
+			aCceuVzAuSv+gOY8IpiNBS4vKYcncCjY1iW16gtj2bA=
+			</data>
+		</dict>
 		<key>Headers/GPUImageLuminosity.h</key>
 		<dict>
 			<key>hash</key>
@@ -995,6 +1676,17 @@
 			<key>hash2</key>
 			<data>
 			gY3eod3igaQlf72xEVrKGHfgy3JhIYMdHtuB3OXhDkw=
+			</data>
+		</dict>
+		<key>Headers/GPUImageMaskFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4me/bbKktSzR2tf91KFrCAFKpDw=
+			</data>
+			<key>hash2</key>
+			<data>
+			44fLCgJZ3nhCD3I7K7dXE3LD8R1B+4HUcpLAZqxrb5k=
 			</data>
 		</dict>
 		<key>Headers/GPUImageMedianFilter.h</key>
@@ -1028,6 +1720,28 @@
 			<key>hash2</key>
 			<data>
 			uu8UF8NzH4i5tzau8UgDGqBvvhfgQoJf7w2B/LQKdsQ=
+			</data>
+		</dict>
+		<key>Headers/GPUImageMosaicFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4L1WsMRVAAen9AfkNC+gWJg+l5s=
+			</data>
+			<key>hash2</key>
+			<data>
+			vpR3pcz7VW5jYrsmx1tIfg79EG31heIYqzwKeSAxM1M=
+			</data>
+		</dict>
+		<key>Headers/GPUImageMotionBlurFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CxYZGDOwU5iVCUhz9pASd8U9E3k=
+			</data>
+			<key>hash2</key>
+			<data>
+			kP+MzWFY5m1pGKfRWkFtEk5OfcxJVeXsCwObUknkp6E=
 			</data>
 		</dict>
 		<key>Headers/GPUImageMotionDetector.h</key>
@@ -1107,6 +1821,39 @@
 			MOpciC/fDhr5mzbhVwjdtqfJjB8050Lc7fxLCqTOaoo=
 			</data>
 		</dict>
+		<key>Headers/GPUImageNormalBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			o+1YuPUIGNrBx31AftBi4v7uBsI=
+			</data>
+			<key>hash2</key>
+			<data>
+			KWYr1P82qvyRov0sPsAt7wgrEPS66a0CS2VX/l9O2mU=
+			</data>
+		</dict>
+		<key>Headers/GPUImageOpacityFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			PWUf8xzWuDzIl6ozfDwkWo29bAY=
+			</data>
+			<key>hash2</key>
+			<data>
+			YU2SITgJxfijq4dMwA1rn+ap7ofJ4GZApfBODdnWz6k=
+			</data>
+		</dict>
+		<key>Headers/GPUImageOpeningFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			f+ZpSToNCGDCmLBneSEM3GAGFkg=
+			</data>
+			<key>hash2</key>
+			<data>
+			iupkkLTpcTlVCCHR/Z+AjzpWBD0hiZ3OL0MUyGI3dts=
+			</data>
+		</dict>
 		<key>Headers/GPUImageOutput.h</key>
 		<dict>
 			<key>hash</key>
@@ -1118,15 +1865,37 @@
 			eNV7T+Ps5995UCwfqui5bOWl4jfSdJGrdfIAuj84Rvk=
 			</data>
 		</dict>
-		<key>Headers/GPUImagePicture+TextureSubimage.h</key>
+		<key>Headers/GPUImageOverlayBlendFilter.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			MTD+sWYHF3HDKTXOBU/4k+YtiPQ=
+			85PVdX0FilNUyQTKvAwCAs+CpgI=
 			</data>
 			<key>hash2</key>
 			<data>
-			5ZfRJAF6cru81m3JCVLq64ZBuCS44FLHA6dK4jZacYc=
+			8jf5Nau0HK2mRHlKn2bsZ4tpnqUpaAxE+jTcDAuLbRo=
+			</data>
+		</dict>
+		<key>Headers/GPUImageParallelCoordinateLineTransformFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			pDJc3qAt8OZkni0KmcSGGZzeHdw=
+			</data>
+			<key>hash2</key>
+			<data>
+			z/fymwIbzghrhsMaUBiU7mpMVgBOJEZ/+mg6edKFbOg=
+			</data>
+		</dict>
+		<key>Headers/GPUImagePerlinNoiseFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			LEZfIm8tBunGxiLLQ2HpmDe2YFo=
+			</data>
+			<key>hash2</key>
+			<data>
+			SQdXvQUqxGOC4T1eQioh3t92KeSssTu4dCc0OJbKVas=
 			</data>
 		</dict>
 		<key>Headers/GPUImagePicture.h</key>
@@ -1138,6 +1907,28 @@
 			<key>hash2</key>
 			<data>
 			S7E95qShrP+xcVb0AoVzHEvOhXej5NBk3is3iciYdk8=
+			</data>
+		</dict>
+		<key>Headers/GPUImagePinchDistortionFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			E5LEMQvCRVqxd6gsBT+AtZCkBUk=
+			</data>
+			<key>hash2</key>
+			<data>
+			hKVURpakr3W8xaLY6RniEcb4RtnaM2lqZ3kvUGX81ic=
+			</data>
+		</dict>
+		<key>Headers/GPUImagePixellateFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			FHcv8OCM25q+A1skTZrcCx/Zu3Q=
+			</data>
+			<key>hash2</key>
+			<data>
+			zg1aFxBRXQuzEXKYLhw6AIoOPagEXlkQcmDsBvbZ6bE=
 			</data>
 		</dict>
 		<key>Headers/GPUImagePixellatePositionFilter.h</key>
@@ -1162,6 +1953,28 @@
 			DIu/PL3Z/lwkNnrm/eb9Zr3CHUIbNOd1joQVqSRoj4E=
 			</data>
 		</dict>
+		<key>Headers/GPUImagePolarPixellateFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			5aGVWSvzWEzu4viAYSY/9oiE3uI=
+			</data>
+			<key>hash2</key>
+			<data>
+			V2t+bRltNSBKaGn4RiSK3i6rzfXQDN5sEGXlQLBCVvs=
+			</data>
+		</dict>
+		<key>Headers/GPUImagePolkaDotFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			SrpQ4VGsvj8g6sOzDJg/1KkQbgk=
+			</data>
+			<key>hash2</key>
+			<data>
+			cOe85ACBynlEg6fXjt3/UWUDN0THJCa7xNPQdRRJZzg=
+			</data>
+		</dict>
 		<key>Headers/GPUImagePosterizeFilter.h</key>
 		<dict>
 			<key>hash</key>
@@ -1173,6 +1986,28 @@
 			lw0hmuQnnzI/WHe0bkUJRJbR6ywZKAK0rBNgceNhQ4o=
 			</data>
 		</dict>
+		<key>Headers/GPUImagePrewittEdgeDetectionFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			N8toPrFwQ2Ugw+k+3OZuvSH/rM8=
+			</data>
+			<key>hash2</key>
+			<data>
+			GgmG5NLg6kFpZARGa9HrYAWjTJ8rAVojkF2BGCZ8l6w=
+			</data>
+		</dict>
+		<key>Headers/GPUImageRGBClosingFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			0kDf1NDSmJa9qTXWXRJn0rqzVZM=
+			</data>
+			<key>hash2</key>
+			<data>
+			c0+MFJk161JMv3y3sze/mDS2hDNRDRBe+z7mI1nyJGA=
+			</data>
+		</dict>
 		<key>Headers/GPUImageRGBDilationFilter.h</key>
 		<dict>
 			<key>hash</key>
@@ -1182,6 +2017,17 @@
 			<key>hash2</key>
 			<data>
 			iGqoh0JYt8UbB3Lt8xW39hKGIqXE2q5FQKn6jhYbfsk=
+			</data>
+		</dict>
+		<key>Headers/GPUImageRGBErosionFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			UGNRsq5EKscoJMw5AWmpNXYWTdM=
+			</data>
+			<key>hash2</key>
+			<data>
+			fsgqB8hh8oihlpdu33ab0FKwexgQhHhB6wZ/pXHM7j8=
 			</data>
 		</dict>
 		<key>Headers/GPUImageRGBFilter.h</key>
@@ -1204,6 +2050,50 @@
 			<key>hash2</key>
 			<data>
 			wPibkpF3L/UUegJv1oHN7YzItjd1POfuS32ti6ZFUE8=
+			</data>
+		</dict>
+		<key>Headers/GPUImageRawDataInput.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			bYPSXj/dY/MXY9pd631dd+SlD5Q=
+			</data>
+			<key>hash2</key>
+			<data>
+			zzOxphZH2h5xHQG/SkKtkp9sbn9E4NGwZTdpP+VQr70=
+			</data>
+		</dict>
+		<key>Headers/GPUImageRawDataOutput.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HI3YzUw4Cdi8JWb2rjQJQ/6EFew=
+			</data>
+			<key>hash2</key>
+			<data>
+			Wdvq2164pOjm+QdkxG3JRdwbOP1AViTbcDaDts4m+OU=
+			</data>
+		</dict>
+		<key>Headers/GPUImageSaturationBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			sVIc5ZOIrLTAYaM6iYDvrdQmllM=
+			</data>
+			<key>hash2</key>
+			<data>
+			j5Xw76lCYYHHF0OCr5buwU5buMO721YBeFBC4LTDfd8=
+			</data>
+		</dict>
+		<key>Headers/GPUImageSaturationFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ArjLRNME7pbUYXWMMariBasSf2A=
+			</data>
+			<key>hash2</key>
+			<data>
+			kTfjt6W8zKzvySulYNsAi2GO5FIqcalE8T2q9Osm+SA=
 			</data>
 		</dict>
 		<key>Headers/GPUImageScreenBlendFilter.h</key>
@@ -1250,6 +2140,50 @@
 			hckgWZWzeoGiwik1hozEhEZV0oyDDd/L5lJADeqJUUw=
 			</data>
 		</dict>
+		<key>Headers/GPUImageSingleComponentGaussianBlurFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			7/jSb9ceaMbbLIPMRzHvaXhXNXo=
+			</data>
+			<key>hash2</key>
+			<data>
+			yjGn49aEMOyI+uL9JLS6k+5jy3jFjYXkvMiF0+OrqiQ=
+			</data>
+		</dict>
+		<key>Headers/GPUImageSketchFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kh4W2i34QVaPpUxLoB7QhmiZBMM=
+			</data>
+			<key>hash2</key>
+			<data>
+			9bX46choNKf3/pNqSfKi0ZRjVp3fwoE+FOraWoXT5U8=
+			</data>
+		</dict>
+		<key>Headers/GPUImageSmoothToonFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			LBI7rJgJxalx0XL08kyxrw2i7dU=
+			</data>
+			<key>hash2</key>
+			<data>
+			n3c9Dpr6M6F5vnRxsRRM/Xs/pSCHdeW8agCaw/VhdtM=
+			</data>
+		</dict>
+		<key>Headers/GPUImageSobelEdgeDetectionFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rpWNWm5HHwlSq1ZQ1vaUiHShjhk=
+			</data>
+			<key>hash2</key>
+			<data>
+			vUe/xIvG0/XHntNgdHn/UZJ1UIrEGV3LpwC/5WyP8FY=
+			</data>
+		</dict>
 		<key>Headers/GPUImageSoftEleganceFilter.h</key>
 		<dict>
 			<key>hash</key>
@@ -1259,6 +2193,28 @@
 			<key>hash2</key>
 			<data>
 			rRxPvkX+g8XECQXRtpzE4LDHM05y38HkJtm8v+IQpbw=
+			</data>
+		</dict>
+		<key>Headers/GPUImageSoftLightBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			LCmUXDPv2Y/1XTjM8l3xkfkTgjQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			zx5jAItoAxN4cpOM7q/5bGu+3KZkWHG9YCPm+3qm/Do=
+			</data>
+		</dict>
+		<key>Headers/GPUImageSolarizeFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			maBeg9l2rrPl76DuGl12ZFoyiro=
+			</data>
+			<key>hash2</key>
+			<data>
+			X/gAHJd5EBZWZ5EpyJOq3SAOCpmfJn+V0ygY7DedRuo=
 			</data>
 		</dict>
 		<key>Headers/GPUImageSolidColorGenerator.h</key>
@@ -1272,6 +2228,28 @@
 			N4bXTgVq0M+q6ebq+5jIKzZHNoIRnI8m4hK+yc+hZBI=
 			</data>
 		</dict>
+		<key>Headers/GPUImageSourceOverBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			dZ+4Jmo2+RTUBZ1ZwvOqklAUXNs=
+			</data>
+			<key>hash2</key>
+			<data>
+			L6DvPi/MXUnI57bPnCK7yJhWRbcz+UTssUeKoFRi7wQ=
+			</data>
+		</dict>
+		<key>Headers/GPUImageSphereRefractionFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/LGpL2OyUYK/pDU/r6rtolh+9HI=
+			</data>
+			<key>hash2</key>
+			<data>
+			IKSKm4l8karsOC8//09n3U4n0/D4MWY/9hZd7ucXYTE=
+			</data>
+		</dict>
 		<key>Headers/GPUImageStillCamera.h</key>
 		<dict>
 			<key>hash</key>
@@ -1283,6 +2261,39 @@
 			O8/dgEjSaZqkBxS9d/Cu8O9TfON8T5YLSMpAl0lpjHY=
 			</data>
 		</dict>
+		<key>Headers/GPUImageStretchDistortionFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			dM2Pu4e4jVqbGEB/eTwojOVH/Oo=
+			</data>
+			<key>hash2</key>
+			<data>
+			N+Food7xczbywFGgKdlBT0YerM9AdnHwDXTbJXxINGQ=
+			</data>
+		</dict>
+		<key>Headers/GPUImageSubtractBlendFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6eceNigAuB1MFFkkgb9wqH1cxts=
+			</data>
+			<key>hash2</key>
+			<data>
+			q6PvLPwaNqoHWXR2qFBIBzuX5CtbGH5QCJq/lyC3tug=
+			</data>
+		</dict>
+		<key>Headers/GPUImageSwirlFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			W1EBsPkwgjRQ4g29xItEnYCj4m4=
+			</data>
+			<key>hash2</key>
+			<data>
+			gJbbUid87G8hYGaiJzjcdUKCg51Ml9P4WvOVQIFxXH8=
+			</data>
+		</dict>
 		<key>Headers/GPUImageTextureInput.h</key>
 		<dict>
 			<key>hash</key>
@@ -1292,6 +2303,17 @@
 			<key>hash2</key>
 			<data>
 			PpUr8cpxdLNEx0EmKVjGH+LFkPgbwR+hZYhJAaFqMS4=
+			</data>
+		</dict>
+		<key>Headers/GPUImageTextureOutput.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			FBr341QKXjYfCZRp9/tRKr7hPss=
+			</data>
+			<key>hash2</key>
+			<data>
+			B9+caOoMwnej6JBzj6LYBeCEERU9aEuc1WKXzVHukY8=
 			</data>
 		</dict>
 		<key>Headers/GPUImageThreeInputFilter.h</key>
@@ -1316,6 +2338,17 @@
 			Qa8DBG/NW9e/RUwZNhIeUkU14CXlD/lczigMJUrienY=
 			</data>
 		</dict>
+		<key>Headers/GPUImageThresholdSketchFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qoUqrEAH1WyTko9oJYejdFlJ4vg=
+			</data>
+			<key>hash2</key>
+			<data>
+			30KG9/JXFlgwAPZfb45q8G1U9k5TQASuJ0fqa2MA3Dk=
+			</data>
+		</dict>
 		<key>Headers/GPUImageThresholdedNonMaximumSuppressionFilter.h</key>
 		<dict>
 			<key>hash</key>
@@ -1325,6 +2358,17 @@
 			<key>hash2</key>
 			<data>
 			ZBR5uOGseMKjNnCQHgtsMAdVnk6ur2SsxZkr2V21VMo=
+			</data>
+		</dict>
+		<key>Headers/GPUImageTiltShiftFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			2e6BVWefqZWB3q/boU0T3pywASk=
+			</data>
+			<key>hash2</key>
+			<data>
+			5riLyAkS5NqMszJpHMYIp3nKke/8DbLH1iPSQILEDPs=
 			</data>
 		</dict>
 		<key>Headers/GPUImageToneCurveFilter.h</key>
@@ -1347,6 +2391,28 @@
 			<key>hash2</key>
 			<data>
 			cOTltWGPEhT/cO+57ACQlz1kN4YRzTF+9PYxnRuij8M=
+			</data>
+		</dict>
+		<key>Headers/GPUImageTransformFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hYC1or0IxZQGx6tlTlsWGIEAGtg=
+			</data>
+			<key>hash2</key>
+			<data>
+			uTs9cKEsBvpuOCy3AKTaQ/yW0+AOcQOOGFxhVJICyfU=
+			</data>
+		</dict>
+		<key>Headers/GPUImageTwoInputCrossTextureSamplingFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			tTeOrYRvFnN+JRl1Zl1Pnx7WksM=
+			</data>
+			<key>hash2</key>
+			<data>
+			DHHFuOrA6opK/k2Xf6TqWvaeCNqypU4ni+Xtp4aSfaw=
 			</data>
 		</dict>
 		<key>Headers/GPUImageTwoInputFilter.h</key>
@@ -1393,15 +2459,15 @@
 			yaQMsskSlJGUlmmsWQIlemOdJr8w2x544SvX3K4X3OE=
 			</data>
 		</dict>
-		<key>Headers/GPUImageVibranceFilter.h</key>
+		<key>Headers/GPUImageUnsharpMaskFilter.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			/eKIzJCL/BL5cOEQjlvCd/7cT/k=
+			tvbQ+h7cIOa1obTOfERZEKlMLgc=
 			</data>
 			<key>hash2</key>
 			<data>
-			duEO1fPezO0iwo2hMWP50ahLDViI6Uqu3UmijAfhI1g=
+			hjJzJqo1V3NzioKoh8RUxrv7ocAuPWwt42fJn9P+pxs=
 			</data>
 		</dict>
 		<key>Headers/GPUImageVideoCamera.h</key>
@@ -1426,6 +2492,28 @@
 			uzK5RM09dP1YQyShaelRxyx96hsXq7+nuFe3RiMTOGQ=
 			</data>
 		</dict>
+		<key>Headers/GPUImageVignetteFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6/RMBS0wP+W+Qrdw9XbQFwR+A2U=
+			</data>
+			<key>hash2</key>
+			<data>
+			KUx+kPEOujDg1vEHKNxCJ/IpKNQqqCcgbFwhzkfYZ/o=
+			</data>
+		</dict>
+		<key>Headers/GPUImageVoronoiConsumerFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			uRq8kWqFIpZtAzB8vM+lmf3/NqE=
+			</data>
+			<key>hash2</key>
+			<data>
+			Wkb3AFqrlTm2PlWiJmV/l2fmzwUfqHHNNwBgYwkT08Q=
+			</data>
+		</dict>
 		<key>Headers/GPUImageWeakPixelInclusionFilter.h</key>
 		<dict>
 			<key>hash</key>
@@ -1446,6 +2534,28 @@
 			<key>hash2</key>
 			<data>
 			6+iCbOlWI+6MQRp1hkJP3UAp//Zy2lAkhCVOa8B0cdM=
+			</data>
+		</dict>
+		<key>Headers/GPUImageXYDerivativeFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			s3VqLQtQvt8iRXqYCetH4F4V3/E=
+			</data>
+			<key>hash2</key>
+			<data>
+			42JierB3Feua24ZX4cPf4ntsfK2QPveQlVJ5L1tmX7o=
+			</data>
+		</dict>
+		<key>Headers/GPUImageZoomBlurFilter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			w0V2pYVUIFam3/3fhAX2qNtesCg=
+			</data>
+			<key>hash2</key>
+			<data>
+			v4JMN9d0pq+IQA7BT48+iOMT5UTyQ1OQ/aa63dBW5s0=
 			</data>
 		</dict>
 		<key>Headers/GPUImageiOSBlurFilter.h</key>
