@@ -109,8 +109,9 @@ static UIImage * base64ToImage(NSString *base64Image) {
 
     NSString *filterType = [command argumentAtIndex:1 withDefault:nil];
     NSNumber *compressionQuality = [command argumentAtIndex:2 withDefault:@(0.5)];
+    NSNumber *weight = [command argumentAtIndex:2 withDefault:nil];
 
-    [self filterImage:currentEditingImage filter:filterType compressionQuality:compressionQuality completion:^(NSData *data) {
+    [self filterImage:currentEditingImage filter:filterType compressionQuality:compressionQuality weight:weight completion:^(NSData *data) {
         CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
         dispatch_sync(dispatch_get_main_queue(), ^{
             [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
@@ -123,8 +124,9 @@ static UIImage * base64ToImage(NSString *base64Image) {
 
     NSString *filterType = [command argumentAtIndex:1 withDefault:nil];
     NSNumber *compressionQuality = [command argumentAtIndex:2 withDefault:@(0.5)];
+    NSNumber *weight = [command argumentAtIndex:2 withDefault:nil];
 
-    [self filterImage:currentPreviewImage filter:filterType compressionQuality:compressionQuality completion:^(NSData *data) {
+    [self filterImage:currentPreviewImage filter:filterType compressionQuality:compressionQuality weight:weight completion:^(NSData *data) {
         CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
         dispatch_sync(dispatch_get_main_queue(), ^{
             [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
@@ -136,9 +138,10 @@ static UIImage * base64ToImage(NSString *base64Image) {
     [self validateInput:command];
 
     NSString *filterType = [command argumentAtIndex:1 withDefault:nil];
-    NSNumber *compressionQuality = [command argumentAtIndex:2 withDefault:@(0.5)];
+    NSNumber *compressionQuality = [command argumentAtIndex:3 withDefault:@(0.5)];
+    NSNumber *weight = [command argumentAtIndex:2 withDefault:nil];
 
-    [self filterImage:currentThumbnailImage filter:filterType compressionQuality:compressionQuality completion:^(NSData *data) {
+    [self filterImage:currentThumbnailImage filter:filterType compressionQuality:compressionQuality weight:weight completion:^(NSData *data) {
         CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
         dispatch_sync(dispatch_get_main_queue(), ^{
             [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
@@ -146,17 +149,17 @@ static UIImage * base64ToImage(NSString *base64Image) {
     }];
 }
 
-- (void)filterImage:(UIImage *)image filter:(NSString *)filterType compressionQuality:(NSNumber *)quality completion:(void(^)(NSData *))completion {
+- (void)filterImage:(UIImage *)image filter:(NSString *)filterType compressionQuality:(NSNumber *)quality weight:(NSNumber *)weight completion:(void(^)(NSData *))completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         @autoreleasepool {
-            UIImage *result = [self applySelectedEffect:image effect:filterType];
+            UIImage *result = [self applySelectedEffect:image effect:filterType weight:weight];
             NSData *data = UIImageJPEGRepresentation(result, [quality floatValue]);
             completion(data);
         }
     });
 }
 
-- (UIImage *)applySelectedEffect:(UIImage *)image effect:(NSString *)effect {
+- (UIImage *)applySelectedEffect:(UIImage *)image effect:(NSString *)effect weight:(NSNumber *)weight{
     if ([effect isEqualToString:@"aged"])
         return [self applyAgedEffect:image];
     else if ([effect isEqualToString:@"blackWhite"])
@@ -171,6 +174,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
         return [self applyWarmEffect:image];
     else if ([effect isEqualToString:@"light"])
         return [self applyLightEffect:image];
+   else return [self applyStandardEffect:image effect:effect weight:weight];
     else
         return nil;
 }
@@ -285,6 +289,130 @@ static UIImage * base64ToImage(NSString *base64Image) {
                          red:nil
                        green:nil
                         blue:nil];
+}
+
+- (UIImage *)applyStandardEffect:(UIImage *)img effect:(NSString *)effect weight:(NSNumber *)weight  {
+  if ([effect isEqualToString:@"saturation"])
+      return [self applyFilter:img
+                    saturation:weight
+                    brightness:nil
+                      contrast:nil
+                         gamma:nil
+                      exposure:nil
+                       sharpen:nil
+                           hue:nil
+                           red:nil
+                         green:nil
+                          blue:nil];
+  else if ([effect isEqualToString:@"brightness"])
+  return [self applyFilter:img
+                saturation:nil
+                brightness:weight
+                  contrast:nil
+                     gamma:nil
+                  exposure:nil
+                   sharpen:nil
+                       hue:nil
+                       red:nil
+                     green:nil
+                      blue:nil];
+  else if ([effect isEqualToString:@"contrast"])
+  return [self applyFilter:img
+                saturation:nil
+                brightness:nil
+                  contrast:weight
+                     gamma:nil
+                  exposure:nil
+                   sharpen:nil
+                       hue:nil
+                       red:nil
+                     green:nil
+                      blue:nil];
+  else if ([effect isEqualToString:@"gamma"])
+  return [self applyFilter:img
+                saturation:nil
+                brightness:nil
+                  contrast:nil
+                     gamma:weight
+                  exposure:nil
+                   sharpen:nil
+                       hue:nil
+                       red:nil
+                     green:nil
+                      blue:nil];
+  else if ([effect isEqualToString:@"exposure"])
+  return [self applyFilter:img
+                saturation:nil
+                brightness:nil
+                  contrast:nil
+                     gamma:nil
+                  exposure:weight
+                   sharpen:nil
+                       hue:nil
+                       red:nil
+                     green:nil
+                      blue:nil];
+  else if ([effect isEqualToString:@"sharpen"])
+  return [self applyFilter:img
+                saturation:nil
+                brightness:nil
+                  contrast:nil
+                     gamma:nil
+                  exposure:nil
+                   sharpen:weight
+                       hue:nil
+                       red:nil
+                     green:nil
+                      blue:nil];
+  else if ([effect isEqualToString:@"hue"])
+  return [self applyFilter:img
+                saturation:nil
+                brightness:nil
+                  contrast:nil
+                     gamma:nil
+                  exposure:nil
+                   sharpen:nil
+                       hue:weight
+                       red:nil
+                     green:nil
+                      blue:nil];
+  else if ([effect isEqualToString:@"red"])
+  return [self applyFilter:img
+                saturation:nil
+                brightness:nil
+                  contrast:nil
+                     gamma:nil
+                  exposure:nil
+                   sharpen:nil
+                       hue:nil
+                       red:weight
+                     green:nil
+                      blue:nil];
+  else if ([effect isEqualToString:@"green"])
+  return [self applyFilter:img
+                saturation:nil
+                brightness:nil
+                  contrast:nil
+                     gamma:nil
+                  exposure:nil
+                   sharpen:nil
+                       hue:nil
+                       red:nil
+                     green:weight
+                      blue:nil];
+  else if ([effect isEqualToString:@"blue"])
+  return [self applyFilter:img
+                saturation:nil
+                brightness:nil
+                  contrast:nil
+                     gamma:nil
+                  exposure:nil
+                   sharpen:nil
+                       hue:nil
+                       red:nil
+                     green:nil
+                      blue:weight];
+  else return [self applyNoEffect:img]
 }
 
 - (UIImage *)applyFilter:(UIImage *)image saturation:(NSNumber *)saturation brightness:(NSNumber *)brightness contrast:(NSNumber *)contrast gamma:(NSNumber *)gamma exposure:(NSNumber *)exposure sharpen:(NSNumber *)sharpen hue:(NSNumber *)hue red:(NSNumber *)red green:(NSNumber *)green blue:(NSNumber *)blue {
