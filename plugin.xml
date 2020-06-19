@@ -24,10 +24,10 @@
         <framework src="jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1" />
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="ImageFilter">
-                <param name="android-package" value="cordova.plugin.sts.image.filter.ImageFilter"/>
+                <param name="android-package" value="cordova.plugin.gpu.image.filter.ImageFilter"/>
             </feature>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml"></config-file>
-        <source-file src="src/android/ImageFilter.java" target-dir="src/cordova/plugin/sts/image/filter"/>
+        <source-file src="src/android/ImageFilter.java" target-dir="src/cordova/plugin/gpu/image/filter"/>
     </platform>
 </plugin>
