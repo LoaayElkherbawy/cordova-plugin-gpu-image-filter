@@ -1,16 +1,16 @@
 {
-  "name": "cordova-plugin-sts-image-filter",
+  "name": "cordova-plugin-gpu-image-filter",
   "version": "0.0.38",
   "description": "",
   "cordova": {
-    "id": "cordova-plugin-sts-image-filter",
+    "id": "cordova-plugin-gpu-image-filter",
     "platforms": [
       "ios"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/ttdat89/cordova-plugin-lucky-clover-image-filter.git"
+    "url": "git+ssh://git@github.com/LoaayElkherbawy/cordova-plugin-gpu-image-filter.git"
   },
   "keywords": [
     "ecosystem:cordova",
@@ -19,7 +19,7 @@
   "author": "Dat Tran",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ttdat89/cordova-plugin-lucky-clover-image-filter/issues"
+    "url": "https://github.com/LoaayElkherbawy/cordova-plugin-gpu-image-filter/issues"
   },
-  "homepage": "https://github.com/ttdat89/cordova-plugin-lucky-clover-image-filter#readme"
+  "homepage": "https://github.com/LoaayElkherbawy/cordova-plugin-gpu-image-filter#readme"
 }

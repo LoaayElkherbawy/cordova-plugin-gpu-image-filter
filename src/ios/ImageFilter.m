@@ -57,7 +57,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
     NSURL *pathUrl = [NSURL URLWithString:pathOrData];
     pathOrData = pathUrl.path;
     NSString *filterType = [command argumentAtIndex:1 withDefault:nil];
-    NSNumber *isBase64Image = [command argumentAtIndex:3 withDefault:@(0)];
+    NSNumber *isBase64Image = [command argumentAtIndex:4 withDefault:@(0)];
 
     if ([isBase64Image intValue] == 0)
     {

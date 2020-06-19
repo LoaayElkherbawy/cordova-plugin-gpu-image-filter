@@ -1,4 +1,4 @@
-package cordova.plugin.sts.image.filter;
+package cordova.plugin.gpu.image.filter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -126,7 +126,8 @@ public class ImageFilter extends CordovaPlugin {
             String path = args.getString(0);
             String filterType = args.getString(1);
             double compressQuality = args.getDouble(2);
-            int isBase64Image = args.getInt(3);
+            double weight = args.getDouble(3);
+            int isBase64Image = args.getInt(4);
 
             if (action.equals("applyEffect"))
                 this.applyEffect(path, filterType, compressQuality, isBase64Image, callbackContext);
