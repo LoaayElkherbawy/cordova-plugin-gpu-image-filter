@@ -311,43 +311,33 @@ public class ImageFilter extends CordovaPlugin {
       case "saturation":
       return this.applyFilter(img, weight, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
       NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      break;
       case "brightness":
       return this.applyFilter(img, NOT_AVAILABLE, weight, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
       NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      break;
       case "contrast":
       return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, weight, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
       NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      break;
       case "gamma":
       return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, weight, NOT_AVAILABLE, NOT_AVAILABLE,
       NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      break;
       case "exposure":
       return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, weight, NOT_AVAILABLE,
       NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      break;
       case "sharpen":
       return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, weight,
       NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      break;
       case "hue":
       return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
       weight, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      break;
       case "red":
       return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
       NOT_AVAILABLE, weight, NOT_AVAILABLE, NOT_AVAILABLE);
-      break;
       case "green":
       return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
       NOT_AVAILABLE, NOT_AVAILABLE, weight, NOT_AVAILABLE);
-      break;
       case "blue":
       return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
       NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, weight);
-      break;
     }
   }
 
