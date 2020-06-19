@@ -175,8 +175,6 @@ static UIImage * base64ToImage(NSString *base64Image) {
     else if ([effect isEqualToString:@"light"])
         return [self applyLightEffect:image];
    else return [self applyStandardEffect:image effect:effect weight:weight];
-    else
-        return nil;
 }
 
 - (UIImage *)applyAgedEffect:(UIImage *)img {
@@ -412,7 +410,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
                        red:nil
                      green:nil
                       blue:weight];
-  else return [self applyNoEffect:img]
+  else return [self applyNoEffect:img];
 }
 
 - (UIImage *)applyFilter:(UIImage *)image saturation:(NSNumber *)saturation brightness:(NSNumber *)brightness contrast:(NSNumber *)contrast gamma:(NSNumber *)gamma exposure:(NSNumber *)exposure sharpen:(NSNumber *)sharpen hue:(NSNumber *)hue red:(NSNumber *)red green:(NSNumber *)green blue:(NSNumber *)blue {
