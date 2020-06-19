@@ -12,10 +12,12 @@
         <config-file parent="/*" target="config.xml">
             <feature name="ImageFilter">
                 <param name="ios-package" value="ImageFilter"/>
+                <param name="onload" value="true"/>
             </feature>
         </config-file>
         <header-file src="src/ios/ImageFilter.h"/>
         <source-file src="src/ios/ImageFilter.m"/>
+        <framework src="lib/MyGPUFramework.framework" custom="true"/>
         <framework src="CoreGraphics.framework"/>
         <framework src="CoreImage.framework"/>
     </platform>
