@@ -1,0 +1,6 @@
+framework module GPUImageFilter {
+  umbrella header "GPUImageFilter.h"
+
+  export *
+  module * { export * }
+}

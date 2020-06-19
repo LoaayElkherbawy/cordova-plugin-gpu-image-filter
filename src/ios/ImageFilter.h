@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Cordova/CDV.h>
 
-#import <MyGPUFramework/GPUImage.h>
+#import <GPUImageFilter/GPUImage.h>
 
 @interface ImageFilter : CDVPlugin
 
