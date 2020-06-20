@@ -12,6 +12,10 @@
 		<data>
 		mxV0e3ySbX5wXHtFNuXmzouYzhg=
 		</data>
+		<key>Headers/GPUImage.h</key>
+		<data>
+		HUrEgiB6fAbHKKOhgpEMG/+gBtU=
+		</data>
 		<key>Headers/GPUImage3x3ConvolutionFilter.h</key>
 		<data>
 		8dpkDAU1/CNJYbLCaopWMbtM9Wk=
@@ -690,7 +694,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		F9f5Vwp2Sa2//JGfz5rctjPn25U=
+		F8bGnvVWxA1/hjEAfP+KFa7SKJg=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -708,6 +712,17 @@
 			<key>hash2</key>
 			<data>
 			cFNmhWSDusMHEdqpJfIR7brb3prKF57vcZvlycZdoHI=
+			</data>
+		</dict>
+		<key>Headers/GPUImage.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HUrEgiB6fAbHKKOhgpEMG/+gBtU=
+			</data>
+			<key>hash2</key>
+			<data>
+			gCGjyabgeFTu22qH526YkzarVuRd9yaX2OvJJ+Uev8E=
 			</data>
 		</dict>
 		<key>Headers/GPUImage3x3ConvolutionFilter.h</key>
