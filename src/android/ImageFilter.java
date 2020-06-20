@@ -12,6 +12,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import androidx.appcompat.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cordova.CordovaPlugin;
@@ -159,38 +162,31 @@ public class ImageFilter extends CordovaPlugin {
 
   private void cropImage(String imagePath,JSONObject options, CallbackContext callbackContext) {
     synchronized (this) {
-      base64Image = imagePath;
-      currentEditingImage = base64ToBitmap(pathOrData);
+      currentEditingImage = base64ToBitmap(imagePath);
 
       int targetWidth = options.getInt("targetWidth");
       int targetHeight = options.getInt("targetHeight");
 
-      PluginResult pr = new PluginResult(PluginResult.Status.NO_RESULT);
-      pr.setKeepCallback(true);
-      callbackContext.sendPluginResult(pr);
       this.callbackContext = callbackContext;
       cordova.setActivityResultCallback(this);
-      CropImage.activity(currentEditingImage)
+      CropImage.activity("klmlkmlkm")
         .setGuidelines(CropImageView.Guidelines.ON)
         .setActivityTitle("My Crop")
-        .setCropShape(CropImageView.CropShape.OVAL)
-        .setCropMenuCropButtonTitle("Done")
-        .setRequestedSize(400, 400)
-        .setCropMenuCropButtonIcon(R.drawable.ic_launcher)
         .start(cordova.getActivity());
     }
   }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+      super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
           CropImage.ActivityResult result = CropImage.getActivityResult(intent);
             if (resultCode == Activity.RESULT_OK) {
-                byte[] output = Base64.encode(result.getCroppedImage(), Base64.NO_WRAP);
-                String js_out = new String(output);
+                // byte[] output = Base64.encode(result, Base64.NO_WRAP);
+                String js_out = new String(result);
                 callbackContext.success(js_out);
                 this.callbackContext = null;
-            } else if (resultCode == Crop.RESULT_ERROR) {
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 try {
                     JSONObject err = new JSONObject();
                     err.put("message", "Error on cropping");
