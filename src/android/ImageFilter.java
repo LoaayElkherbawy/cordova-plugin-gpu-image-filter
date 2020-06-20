@@ -150,7 +150,7 @@ public class ImageFilter extends CordovaPlugin {
       else if (action.equals("cropImage")) {
           String imagePath = args.getString(0);
           JSONObject options = args.getJSONObject(1);
-          this.cropImage(imagePath,options,callbackContext)
+          this.cropImage(imagePath,options,callbackContext);
       }
       return true;
     }
