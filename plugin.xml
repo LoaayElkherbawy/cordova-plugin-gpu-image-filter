@@ -17,6 +17,20 @@
         </config-file>
         <header-file src="src/ios/ImageFilter.h"/>
         <source-file src="src/ios/ImageFilter.m"/>
+        <header-file src="lib/PECropRectView.h" />
+        <source-file src="lib/PECropRectView.m" />
+        <header-file src="lib/PECropView.h" />
+        <source-file src="lib/PECropView.m" />
+        <header-file src="lib/PECropViewController.h" />
+        <source-file src="lib/PECropViewController.m" />
+        <header-file src="lib/PEResizeControl.h" />
+        <source-file src="lib/PEResizeControl.m" />
+        <header-file src="lib/UIImage+PECrop.h" />
+        <source-file src="lib/UIImage+PECrop.m" />
+        <resource-file src="lib/PEPhotoCropEditor.bundle" />
+
+        <framework src="QuartzCore.framework" />
+        <framework src="AVFoundation.framework" />
         <framework src="lib/GPUImage.framework" custom="true"/>
         <framework src="CoreGraphics.framework"/>
         <framework src="CoreImage.framework"/>
