@@ -14,6 +14,7 @@
 @interface ImageFilter : CDVPlugin
 
 - (void)applyEffect:(CDVInvokedUrlCommand*)command;
+- (void)cropImage:(CDVInvokedUrlCommand*)command;
 - (void)applyEffectForReview:(CDVInvokedUrlCommand*)command;
 - (void)applyEffectForThumbnail:(CDVInvokedUrlCommand *)command;
 

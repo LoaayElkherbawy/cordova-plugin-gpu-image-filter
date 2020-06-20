@@ -7,6 +7,16 @@
 //
 
 #import "ImageFilter.h"
+#import "CTCrop.h"
+
+#define CDV_PHOTO_PREFIX @"cdv_photo_"
+
+@interface CTCrop ()
+@property (copy) NSString* callbackId;
+@property (assign) NSUInteger quality;
+@property (assign) NSUInteger targetWidth;
+@property (assign) NSUInteger targetHeight;
+@end
 
 @implementation ImageFilter
 
@@ -117,6 +127,66 @@ static UIImage * base64ToImage(NSString *base64Image) {
             [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
         });
     }];
+}
+
+- (void) cropImage: (CDVInvokedUrlCommand *) command {
+    NSString *imagePath = [command.arguments objectAtIndex:0];
+    UIImage *image = base64ToImage(imagePath);
+
+    NSDictionary *options = [command.arguments objectAtIndex:1];
+
+    self.quality = options[@"quality"] ? [options[@"quality"] intValue] : 100;
+    self.targetWidth = options[@"targetWidth"] ? [options[@"targetWidth"] intValue] : -1;
+    self.targetHeight = options[@"targetHeight"] ? [options[@"targetHeight"] intValue] : -1;
+
+    PECropViewController *cropController = [[PECropViewController alloc] init];
+    cropController.delegate = self;
+    cropController.image = image;
+
+    CGFloat width = self.targetWidth > -1 ? (CGFloat)self.targetWidth : image.size.width;
+    CGFloat height = self.targetHeight > -1 ? (CGFloat)self.targetHeight : image.size.height;
+    CGFloat length = MIN(width, height);
+    cropController.toolbarHidden = YES;
+    cropController.rotationEnabled = NO;
+    cropController.keepingCropAspectRatio = YES;
+
+    cropController.imageCropRect = CGRectMake((width - length) / 2,
+                                              (height - length) / 2,
+                                              length,
+                                              length);
+
+    self.callbackId = command.callbackId;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:cropController];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
+    }
+
+    [self.viewController presentViewController:navigationController animated:YES completion:NULL];
+}
+
+- (void)cropViewController:(PECropViewController *)controller didFinishCroppingImage:(UIImage *)croppedImage {
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    if (!self.callbackId) return;
+
+    NSData *data = UIImageJPEGRepresentation(croppedImage, (CGFloat) self.quality);
+    CDVPluginResult *result;
+
+    result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
+
+    [self.commandDelegate sendPluginResult:result callbackId:self.callbackId];
+    self.callbackId = nil;
+}
+
+- (void)cropViewControllerDidCancel:(PECropViewController *)controller {
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    NSDictionary *err = @{
+                          @"message": @"User cancelled",
+                          @"code": @"userCancelled"
+                          };
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:err];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
+    self.callbackId = nil;
 }
 
 - (void)applyEffectForReview:(CDVInvokedUrlCommand*)command {

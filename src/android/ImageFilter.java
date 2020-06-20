@@ -4,6 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cordova.CordovaPlugin;
@@ -93,6 +101,9 @@ public class ImageFilter extends CordovaPlugin {
 
   public CallbackContext callbackContext;
 
+    private Uri inputUri;
+    private Uri outputUri;
+
   @Override
   protected void pluginInitialize() {
     super.pluginInitialize();
@@ -122,7 +133,8 @@ public class ImageFilter extends CordovaPlugin {
     }
     if (action.equals("applyEffect")
     || action.equals("applyEffectForReview")
-    || action.equals("applyEffectForThumbnail")) {
+    || action.equals("applyEffectForThumbnail")
+    || action.equals("cropImage")) {
       String path = args.getString(0);
       String filterType = args.getString(1);
       double weight = args.getDouble(2);
@@ -135,11 +147,73 @@ public class ImageFilter extends CordovaPlugin {
       this.applyEffectForReview(path, filterType, compressQuality, isBase64Image,weight, callbackContext);
       else if (action.equals("applyEffectForThumbnail"))
       this.applyEffectForThumbnail(path, filterType, compressQuality, isBase64Image,weight, callbackContext);
-
+      else if (action.equals("cropImage")) {
+          String imagePath = args.getString(0);
+          JSONObject options = args.getJSONObject(1);
+          this.cropImage(imagePath,options,callbackContext)
+      }
       return true;
     }
     return false;
   }
+
+  private void cropImage(String imagePath,JSONObject options, CallbackContext callbackContext) {
+    synchronized (this) {
+      base64Image = imagePath;
+      currentEditingImage = base64ToBitmap(pathOrData);
+
+      int targetWidth = options.getInt("targetWidth");
+      int targetHeight = options.getInt("targetHeight");
+
+      PluginResult pr = new PluginResult(PluginResult.Status.NO_RESULT);
+      pr.setKeepCallback(true);
+      callbackContext.sendPluginResult(pr);
+      this.callbackContext = callbackContext;
+      cordova.setActivityResultCallback(this);
+      CropImage.activity(currentEditingImage)
+        .setGuidelines(CropImageView.Guidelines.ON)
+        .setActivityTitle("My Crop")
+        .setCropShape(CropImageView.CropShape.OVAL)
+        .setCropMenuCropButtonTitle("Done")
+        .setRequestedSize(400, 400)
+        .setCropMenuCropButtonIcon(R.drawable.ic_launcher)
+        .start(cordova.getActivity());
+    }
+  }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+          CropImage.ActivityResult result = CropImage.getActivityResult(intent);
+            if (resultCode == Activity.RESULT_OK) {
+                byte[] output = Base64.encode(result.getCroppedImage(), Base64.NO_WRAP);
+                String js_out = new String(output);
+                callbackContext.success(js_out);
+                this.callbackContext = null;
+            } else if (resultCode == Crop.RESULT_ERROR) {
+                try {
+                    JSONObject err = new JSONObject();
+                    err.put("message", "Error on cropping");
+                    err.put("code", String.valueOf(resultCode));
+                    this.callbackContext.error(err);
+                    this.callbackContext = null;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                try {
+                    JSONObject err = new JSONObject();
+                    err.put("message", "User cancelled");
+                    err.put("code", "userCancelled");
+                    this.callbackContext.error(err);
+                    this.callbackContext = null;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, intent);
+    }
 
   private void validateInput(String pathOrData, String filterType, int isBase64Image) {
 
