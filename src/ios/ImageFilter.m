@@ -10,7 +10,7 @@
 
 #define CDV_PHOTO_PREFIX @"cdv_photo_"
 
-@interface CTCrop ()
+@interface ImageFilter ()
 @property (copy) NSString* callbackId;
 @property (assign) NSUInteger quality;
 @property (assign) NSUInteger targetWidth;
