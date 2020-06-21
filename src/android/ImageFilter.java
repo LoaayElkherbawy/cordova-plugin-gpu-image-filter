@@ -93,6 +93,7 @@ public class ImageFilter extends CordovaPlugin {
   private Bitmap currentPreviewImage;
   private Bitmap currentEditingImage;
   private Bitmap currentThumbnailImage;
+  private double compressCropQuality;
   //    private static GPUImage editingGPUImage;
   //    private static GPUImage previewGPUImage;
   //    private static GPUImage thumbnailGPUImage;
@@ -136,8 +137,7 @@ public class ImageFilter extends CordovaPlugin {
     }
     if (action.equals("applyEffect")
     || action.equals("applyEffectForReview")
-    || action.equals("applyEffectForThumbnail")
-    || action.equals("cropImage")) {
+    || action.equals("applyEffectForThumbnail")) {
       String path = args.getString(0);
       String filterType = args.getString(1);
       double weight = args.getDouble(2);
@@ -150,12 +150,12 @@ public class ImageFilter extends CordovaPlugin {
       this.applyEffectForReview(path, filterType, compressQuality, isBase64Image,weight, callbackContext);
       else if (action.equals("applyEffectForThumbnail"))
       this.applyEffectForThumbnail(path, filterType, compressQuality, isBase64Image,weight, callbackContext);
-      else if (action.equals("cropImage")) {
-          String imagePath = args.getString(0);
-          JSONObject options = args.getJSONObject(1);
-          this.cropImage(imagePath,options,callbackContext);
-      }
       return true;
+    }else if (action.equals("cropImage")) {
+        String imagePath = args.getString(0);
+        JSONObject options = args.getJSONObject(1);
+        this.cropImage(imagePath,options,callbackContext);
+        return true;
     }
     return false;
   }
@@ -163,6 +163,7 @@ public class ImageFilter extends CordovaPlugin {
   private void cropImage(String imagePath,JSONObject options, CallbackContext callbackContext) {
     synchronized (this) {
       currentEditingImage = base64ToBitmap(imagePath);
+      compressCropQuality = options.getDouble("quality");
 
       int targetWidth = options.getInt("targetWidth");
       int targetHeight = options.getInt("targetHeight");
@@ -182,9 +183,7 @@ public class ImageFilter extends CordovaPlugin {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
           CropImage.ActivityResult result = CropImage.getActivityResult(intent);
             if (resultCode == Activity.RESULT_OK) {
-                // byte[] output = Base64.encode(result, Base64.NO_WRAP);
-                String js_out = new String(result.getResultBitMap());
-                callbackContext.success(js_out);
+                this.processPicture(result.getResultBitMap(), (float) this.compressCropQuality, JPEG, this.callbackContext);
                 this.callbackContext = null;
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 try {
