@@ -38,15 +38,15 @@
     <platform name="android">
         <framework src="org.apache.commons:commons-lang3:3.4" />
         <framework src="jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1" />
-        <framework src="src/android/cropper.gradle" custom="true" type="gradleReference" />
-        <resource-file src="src/android/lib/cropper.aar" target="libs/cropper.aar" />
+        <!-- <framework src="src/android/cropper.gradle" custom="true" type="gradleReference" /> -->
+        <!-- <resource-file src="src/android/lib/cropper.aar" target="libs/cropper.aar" /> -->
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="ImageFilter">
                 <param name="android-package" value="cordova.plugin.gpu.image.filter.ImageFilter"/>
             </feature>
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-          <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+          <activity android:name="co/soundcloud/android/crop.CropImageActivity" />
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/manifest">
           <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -54,5 +54,14 @@
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml"></config-file>
         <source-file src="src/android/ImageFilter.java" target-dir="src/cordova/plugin/gpu/image/filter"/>
+        <source-file src="src/android/lib/Crop.java" target-dir="src/co/soundcloud/android/crop"/>
+        <source-file src="src/android/lib/CropImageActivity.java" target-dir="src/co/soundcloud/android/crop"/>
+        <source-file src="src/android/lib/CropImageView.java" target-dir="src/co/soundcloud/android/crop"/>
+        <source-file src="src/android/lib/CropUtil.java" target-dir="src/co/soundcloud/android/crop"/>
+        <source-file src="src/android/lib/HighlightView.java" target-dir="src/co/soundcloud/android/crop"/>
+        <source-file src="src/android/lib/ImageViewTouchBase.java" target-dir="src/co/soundcloud/android/crop"/>
+        <source-file src="src/android/lib/Log.java" target-dir="src/co/soundcloud/android/crop"/>
+        <source-file src="src/android/lib/MonitoredActivity.java" target-dir="src/co/soundcloud/android/crop"/>
+        <source-file src="src/android/lib/RotateBitmap.java" target-dir="src/co/soundcloud/android/crop"/>
     </platform>
 </plugin>
