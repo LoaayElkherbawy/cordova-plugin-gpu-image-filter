@@ -10,8 +10,9 @@
 #import <Cordova/CDV.h>
 
 #import <GPUImage/GPUImage.h>
+#import "PECropViewController.h"
 
-@interface ImageFilter : CDVPlugin
+@interface ImageFilter : CDVPlugin <PECropViewControllerDelegate>
 
 - (void)applyEffect:(CDVInvokedUrlCommand*)command;
 - (void)cropImage:(CDVInvokedUrlCommand*)command;

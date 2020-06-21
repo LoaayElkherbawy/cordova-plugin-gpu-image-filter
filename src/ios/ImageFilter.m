@@ -7,7 +7,6 @@
 //
 
 #import "ImageFilter.h"
-#import "CTCrop.h"
 
 #define CDV_PHOTO_PREFIX @"cdv_photo_"
 
@@ -163,30 +162,6 @@ static UIImage * base64ToImage(NSString *base64Image) {
     }
 
     [self.viewController presentViewController:navigationController animated:YES completion:NULL];
-}
-
-- (void)cropViewController:(PECropViewController *)controller didFinishCroppingImage:(UIImage *)croppedImage {
-    [controller dismissViewControllerAnimated:YES completion:nil];
-    if (!self.callbackId) return;
-
-    NSData *data = UIImageJPEGRepresentation(croppedImage, (CGFloat) self.quality);
-    CDVPluginResult *result;
-
-    result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
-
-    [self.commandDelegate sendPluginResult:result callbackId:self.callbackId];
-    self.callbackId = nil;
-}
-
-- (void)cropViewControllerDidCancel:(PECropViewController *)controller {
-    [controller dismissViewControllerAnimated:YES completion:nil];
-    NSDictionary *err = @{
-                          @"message": @"User cancelled",
-                          @"code": @"userCancelled"
-                          };
-    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:err];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
-    self.callbackId = nil;
 }
 
 - (void)applyEffectForReview:(CDVInvokedUrlCommand*)command {
@@ -617,6 +592,32 @@ static UIImage * base64ToImage(NSString *base64Image) {
     GPUImageRGBFilter *filter = [GPUImageRGBFilter new];
     [filter setBlue:[value floatValue]];
     return filter;
+}
+
+#pragma mark - PECropViewControllerDelegate
+
+- (void)cropViewController:(PECropViewController *)controller didFinishCroppingImage:(UIImage *)croppedImage {
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    if (!self.callbackId) return;
+
+    NSData *data = UIImageJPEGRepresentation(croppedImage, (CGFloat) self.quality);
+    CDVPluginResult *result;
+
+    result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
+
+    [self.commandDelegate sendPluginResult:result callbackId:self.callbackId];
+    self.callbackId = nil;
+}
+
+- (void)cropViewControllerDidCancel:(PECropViewController *)controller {
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    NSDictionary *err = @{
+                          @"message": @"User cancelled",
+                          @"code": @"userCancelled"
+                          };
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:err];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
+    self.callbackId = nil;
 }
 
 @end
