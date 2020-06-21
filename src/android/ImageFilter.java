@@ -198,6 +198,7 @@ public class ImageFilter extends CordovaPlugin {
                   JSONObject err = new JSONObject();
                   err.put("message", "Error on cropping");
                   err.put("code", String.valueOf(resultCode));
+                  err.put("errorStack", String.valueOf(Crop.getError(intent).toString()));
                   this.callbackContext.error(err);
                   this.callbackContext = null;
               } catch (JSONException e) {
@@ -216,6 +217,7 @@ public class ImageFilter extends CordovaPlugin {
           }
       }
       super.onActivityResult(requestCode, resultCode, intent);
+
   }
 
   private void validateInput(String pathOrData, String filterType, int isBase64Image) {
