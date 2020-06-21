@@ -169,7 +169,7 @@ public class ImageFilter extends CordovaPlugin {
 
       this.callbackContext = callbackContext;
       cordova.setActivityResultCallback(this);
-      CropImage.activity("klmlkmlkm")
+      CropImage.activity(currentEditingImage)
         .setGuidelines(CropImageView.Guidelines.ON)
         .setActivityTitle("My Crop")
         .start(cordova.getActivity());
@@ -178,12 +178,12 @@ public class ImageFilter extends CordovaPlugin {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-      super.onActivityResult(requestCode, resultCode, data);
+      super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
           CropImage.ActivityResult result = CropImage.getActivityResult(intent);
             if (resultCode == Activity.RESULT_OK) {
                 // byte[] output = Base64.encode(result, Base64.NO_WRAP);
-                String js_out = new String(result);
+                String js_out = new String(result.getResultBitMap());
                 callbackContext.success(js_out);
                 this.callbackContext = null;
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
