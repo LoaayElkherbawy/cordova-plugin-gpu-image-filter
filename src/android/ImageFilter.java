@@ -160,7 +160,7 @@ public class ImageFilter extends CordovaPlugin {
     return false;
   }
 
-  private void cropImage(String imagePath,JSONObject options, CallbackContext callbackContext) {
+  private void cropImage(String imagePath,JSONObject options, CallbackContext callbackContext) throws JSONException {
     synchronized (this) {
       currentEditingImage = base64ToBitmap(imagePath);
       compressCropQuality = options.getDouble("quality");
