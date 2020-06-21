@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +12,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
+import org.apache.cordova.PluginResult;
+import com.soundcloud.android.crop.Crop;
 import android.widget.ImageView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -168,47 +168,55 @@ public class ImageFilter extends CordovaPlugin {
       int targetWidth = options.getInt("targetWidth");
       int targetHeight = options.getInt("targetHeight");
 
-      this.callbackContext = callbackContext;
-      cordova.setActivityResultCallback(this);
-      CropImage.activity(currentEditingImage)
-        .setGuidelines(CropImageView.Guidelines.ON)
-        .setActivityTitle("My Crop")
-        .start(cordova.getActivity());
+      PluginResult pr = new PluginResult(PluginResult.Status.NO_RESULT);
+          pr.setKeepCallback(true);
+          callbackContext.sendPluginResult(pr);
+          this.callbackContext = callbackContext;
+
+          cordova.setActivityResultCallback(this);
+          Crop crop = Crop.of(currentEditingImage, currentEditingImage);
+          if(targetHeight != -1 && targetWidth != -1) {
+              crop.withMaxSize(targetWidth, targetHeight);
+              if(targetWidth == targetHeight) {
+                  crop.asSquare();
+              }
+          } else {
+              crop.asSquare();
+          }
+          crop.start(cordova.getActivity());
     }
   }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+      if (requestCode == Crop.REQUEST_CROP) {
+          if (resultCode == Activity.RESULT_OK) {
+              Bitmap imageUri = Crop.getOutput(intent);
+              this.processPicture(imageUri, (float) this.compressCropQuality, JPEG, this.callbackContext);
+              this.callbackContext = null;
+          } else if (resultCode == Crop.RESULT_ERROR) {
+              try {
+                  JSONObject err = new JSONObject();
+                  err.put("message", "Error on cropping");
+                  err.put("code", String.valueOf(resultCode));
+                  this.callbackContext.error(err);
+                  this.callbackContext = null;
+              } catch (JSONException e) {
+                  e.printStackTrace();
+              }
+          } else if (resultCode == Activity.RESULT_CANCELED) {
+              try {
+                  JSONObject err = new JSONObject();
+                  err.put("message", "User cancelled");
+                  err.put("code", "userCancelled");
+                  this.callbackContext.error(err);
+                  this.callbackContext = null;
+              } catch (JSONException e) {
+                  e.printStackTrace();
+              }
+          }
+      }
       super.onActivityResult(requestCode, resultCode, intent);
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-          CropImage.ActivityResult result = CropImage.getActivityResult(intent);
-            if (resultCode == Activity.RESULT_OK) {
-                this.processPicture(result.getResultBitMap(), (float) this.compressCropQuality, JPEG, this.callbackContext);
-                this.callbackContext = null;
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                try {
-                    JSONObject err = new JSONObject();
-                    err.put("message", "Error on cropping");
-                    err.put("code", String.valueOf(resultCode));
-                    this.callbackContext.error(err);
-                    this.callbackContext = null;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                try {
-                    JSONObject err = new JSONObject();
-                    err.put("message", "User cancelled");
-                    err.put("code", "userCancelled");
-                    this.callbackContext.error(err);
-                    this.callbackContext = null;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, intent);
-    }
+  }
 
   private void validateInput(String pathOrData, String filterType, int isBase64Image) {
 
