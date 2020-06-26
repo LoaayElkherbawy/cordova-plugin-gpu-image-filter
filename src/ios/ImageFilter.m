@@ -50,7 +50,7 @@ static NSString* toBase64(NSData* data) {
 static UIImage * base64ToImage(NSString *base64Image) {
   NSData *imageData = [[NSData alloc] initWithBase64EncodedString:base64Image options:0];
   UIImage *normalizedImage = [UIImage imageWithData:imageData];
-  switch normalizedImage.imageOrientation
+  switch (normalizedImage.imageOrientation)
   {
     case UIImageOrientation.Right:
     return [UIImage imageWithCGImage:normalizedImage.CGImage scale: 1, orientation:UIImageOrientation.Down];
