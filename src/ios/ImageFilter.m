@@ -50,22 +50,7 @@ static NSString* toBase64(NSData* data) {
 static UIImage * base64ToImage(NSString *base64Image) {
   NSData *imageData = [[NSData alloc] initWithBase64EncodedString:base64Image options:0];
   UIImage *normalizedImage = [UIImage imageWithData:imageData];
-  switch (normalizedImage.imageOrientation)
-  {
-    case UIImageOrientation.Right:
-    return [UIImage imageWithCGImage:normalizedImage.CGImage scale: 1, orientation:UIImageOrientation.Down];
-
-    case UIImageOrientation.Down:
-    return [UIImage imageWithCGImage:normalizedImage.CGImage scale: 1, orientation:UIImageOrientation.Left];
-
-    case UIImageOrientation.Left:
-    return [UIImage imageWithCGImage:normalizedImage.CGImage scale: 1, orientation:UIImageOrientation.Up];
-
-    default:
-    return [UIImage imageWithCGImage:normalizedImage.CGImage scale: 1, orientation:UIImageOrientation.Right];
-
-  }
-  return normalizedImage;
+  return [UIImage imageWithCGImage:normalizedImage.CGImage scale: 1 orientation:normalizedImage.imageOrientation];
 }
 
 - (void)pluginInitialize {
@@ -544,11 +529,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
   [group setInitialFilters:[NSArray arrayWithObject:filters.firstObject]];
   [group setTerminalFilter:filters.lastObject];
 
-  [stillImageSource addTarget:group];
-  [group useNextFrameForImageCapture];
-  [stillImageSource processImage];
-
-  result = [group imageFromCurrentFramebuffer];
+  result = [group imageByFilteringImage:image];
 
   return result;
 }
