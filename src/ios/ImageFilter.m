@@ -524,12 +524,15 @@ static UIImage * base64ToImage(NSString *base64Image) {
     tmp = filter;
   }
 
-  GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:image];
+  if(filters.count > 0){
   GPUImageFilterGroup *group = [GPUImageFilterGroup new];
   [group setInitialFilters:[NSArray arrayWithObject:filters.firstObject]];
   [group setTerminalFilter:filters.lastObject];
 
   result = [group imageByFilteringImage:image];
+}else{
+  result = image;
+}
 
   return result;
 }
