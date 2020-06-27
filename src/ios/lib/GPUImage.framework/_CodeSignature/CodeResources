@@ -4,10 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>.DS_Store</key>
-		<data>
-		D13jkW7p1TJeIRPVLe8TtGd9U7w=
-		</data>
 		<key>Headers/GLProgram.h</key>
 		<data>
 		mxV0e3ySbX5wXHtFNuXmzouYzhg=
@@ -694,7 +690,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		F8bGnvVWxA1/hjEAfP+KFa7SKJg=
+		F9f5Vwp2Sa2//JGfz5rctjPn25U=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
