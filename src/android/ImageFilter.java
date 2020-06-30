@@ -490,7 +490,7 @@ public class ImageFilter extends CordovaPlugin {
       CompressFormat.PNG;
 
       try {
-        if (bitmap.compress(compressFormat, Math.round(0.8f * 100), jpeg_data)) {
+        if (bitmap.compress(compressFormat, 100, jpeg_data)) {
           byte[] code = jpeg_data.toByteArray();
           byte[] output = Base64.encode(code, Base64.NO_WRAP);
           String js_out = new String(output);
