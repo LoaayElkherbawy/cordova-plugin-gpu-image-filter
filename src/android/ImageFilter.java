@@ -24,7 +24,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.OutputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 import android.graphics.Bitmap.*;
 import android.util.DisplayMetrics;
@@ -90,10 +97,10 @@ public class ImageFilter extends CordovaPlugin {
 
   private static String currentImagePath;
   private static String base64Image;
-  private Bitmap currentPreviewImage;
-  private Bitmap currentEditingImage;
-  private Bitmap currentThumbnailImage;
-  private double compressCropQuality;
+  private static Bitmap currentPreviewImage;
+  private static Bitmap currentEditingImage;
+  private static Bitmap currentThumbnailImage;
+  private static double compressCropQuality;
   //    private static GPUImage editingGPUImage;
   //    private static GPUImage previewGPUImage;
   //    private static GPUImage thumbnailGPUImage;
@@ -105,8 +112,8 @@ public class ImageFilter extends CordovaPlugin {
 
   public CallbackContext callbackContext;
 
-    private Uri inputUri;
-    private Uri outputUri;
+  private Uri inputUri;
+  private Uri outputUri;
 
   @Override
   protected void pluginInitialize() {
@@ -152,16 +159,25 @@ public class ImageFilter extends CordovaPlugin {
       this.applyEffectForThumbnail(path, filterType, compressQuality, isBase64Image,weight, callbackContext);
       return true;
     }else if (action.equals("cropImage")) {
-        String imagePath = args.getString(0);
-        JSONObject options = args.getJSONObject(1);
-        this.cropImage(imagePath,options,callbackContext);
-        return true;
+      cordova.getThreadPool().execute(new Runnable() {
+        @Override
+        public void run() {
+          try{
+            String imagePath = args.getString(0);
+            JSONObject options = args.getJSONObject(1);
+            callbackContext.sendPluginResult(cropImage(imagePath,options,callbackContext));
+          }catch(JSONException e){
+          }
+        }
+      });
+
+      return true;
     }
     return false;
   }
 
-  private void cropImage(String imagePath,JSONObject options, CallbackContext callbackContext) throws JSONException {
-    synchronized (this) {
+  private PluginResult cropImage(String imagePath,JSONObject options, CallbackContext callbackContext) {
+    try{
       currentEditingImage = base64ToBitmap(imagePath);
       compressCropQuality = options.getDouble("quality");
 
@@ -169,52 +185,73 @@ public class ImageFilter extends CordovaPlugin {
       int targetHeight = options.getInt("targetHeight");
 
       PluginResult pr = new PluginResult(PluginResult.Status.NO_RESULT);
-          pr.setKeepCallback(true);
-          callbackContext.sendPluginResult(pr);
-          this.callbackContext = callbackContext;
+      pr.setKeepCallback(true);
+      callbackContext.sendPluginResult(pr);
+      this.callbackContext = callbackContext;
+      cordova.setActivityResultCallback(this);
 
-          cordova.setActivityResultCallback(this);
-          Crop crop = Crop.of(currentEditingImage, currentEditingImage);
-          if(targetHeight != -1 && targetWidth != -1) {
-              crop.withMaxSize(targetWidth, targetHeight);
-              if(targetWidth == targetHeight) {
-                  crop.asSquare();
-              }
-          }
-          crop.start(cordova.getActivity());
+      File file = new File(context.getCacheDir(),"tmpCrop.jpeg");
+      File output = new File(context.getCacheDir(),"tmpCropOut.jpeg");
+      OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
+      currentEditingImage.compress(Bitmap.CompressFormat.JPEG, 100, os);
+      os.close();
+
+      Crop crop = Crop.of(Uri.fromFile(file), Uri.fromFile(output));
+      if(targetHeight != -1 && targetWidth != -1) {
+        crop.withMaxSize(targetWidth, targetHeight);
+        if(targetWidth == targetHeight) {
+          crop.asSquare();
+        }
+      }
+      crop.start(cordova.getActivity());
+      return pr;
+    }catch(JSONException e){
+      return new PluginResult(PluginResult.Status.JSON_EXCEPTION);
+    }catch(FileNotFoundException e){
+      return new PluginResult(PluginResult.Status.JSON_EXCEPTION);
+    }catch(IOException e){
+      return new PluginResult(PluginResult.Status.JSON_EXCEPTION);
     }
   }
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-      if (requestCode == Crop.REQUEST_CROP) {
-          if (resultCode == Activity.RESULT_OK) {
-              Bitmap imageUri = Crop.getOutput(intent);
-              this.processPicture(imageUri, (float) this.compressCropQuality, JPEG, this.callbackContext);
-              this.callbackContext = null;
-          } else if (resultCode == Crop.RESULT_ERROR) {
-              try {
-                  JSONObject err = new JSONObject();
-                  err.put("message", "Error on cropping");
-                  err.put("code", String.valueOf(resultCode));
-                  err.put("errorStack", String.valueOf(Crop.getError(intent).toString()));
-                  this.callbackContext.error(err);
-                  this.callbackContext = null;
-              } catch (JSONException e) {
-                  e.printStackTrace();
-              }
-          } else if (resultCode == Activity.RESULT_CANCELED) {
-              try {
-                  JSONObject err = new JSONObject();
-                  err.put("message", "User cancelled");
-                  err.put("code", "userCancelled");
-                  this.callbackContext.error(err);
-                  this.callbackContext = null;
-              } catch (JSONException e) {
-                  e.printStackTrace();
-              }
-          }
+    if (requestCode == Crop.REQUEST_CROP) {
+      if (resultCode == Activity.RESULT_OK) {
+        try{
+        InputStream is = context.getContentResolver().openInputStream(Crop.getOutput(intent));
+        Bitmap imageUri = BitmapFactory.decodeStream(is);
+        is.close();
+        this.processPicture(imageUri, (float) this.compressCropQuality, JPEG, this.callbackContext);
+        this.callbackContext = null;
+      }catch(IOException e){
+        this.callbackContext.error("Failed to write");
+        this.callbackContext = null;
+        e.printStackTrace();
       }
-      super.onActivityResult(requestCode, resultCode, intent);
+      } else if (resultCode == Crop.RESULT_ERROR) {
+        try {
+          JSONObject err = new JSONObject();
+          err.put("message", "Error on cropping");
+          err.put("code", String.valueOf(resultCode));
+          err.put("errorStack", String.valueOf(Crop.getError(intent).toString()));
+          this.callbackContext.error(err);
+          this.callbackContext = null;
+        } catch (JSONException e) {
+          e.printStackTrace();
+        }
+      } else if (resultCode == Activity.RESULT_CANCELED) {
+        try {
+          JSONObject err = new JSONObject();
+          err.put("message", "User cancelled");
+          err.put("code", "userCancelled");
+          this.callbackContext.error(err);
+          this.callbackContext = null;
+        } catch (JSONException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+    super.onActivityResult(requestCode, resultCode, intent);
 
   }
 
@@ -500,6 +537,7 @@ public class ImageFilter extends CordovaPlugin {
       } catch (Exception e) {
         this.failPicture("Error compressing image.");
       }
+      if(bitmap != null) bitmap.recycle();
       jpeg_data = null;
     }
   }
