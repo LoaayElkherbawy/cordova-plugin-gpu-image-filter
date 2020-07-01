@@ -146,17 +146,18 @@ public class ImageFilter extends CordovaPlugin {
     || action.equals("applyEffectForReview")
     || action.equals("applyEffectForThumbnail")) {
       String path = args.getString(0);
-      String filterType = args.getString(1);
-      double weight = args.getDouble(2);
-      double compressQuality = args.getDouble(3);
-      int isBase64Image = args.getInt(4);
+      JSONArray filters = args.getJSONArray(1);
+      //String filterType = args.getString(1);
+      //double weight = args.getDouble(2);
+      double compressQuality = args.getDouble(2);
+      int isBase64Image = args.getInt(3);
 
       if (action.equals("applyEffect"))
-      this.applyEffect(path, filterType, compressQuality, isBase64Image,weight, callbackContext);
+      this.applyEffect(path, filters, compressQuality, isBase64Image, callbackContext);
       else if (action.equals("applyEffectForReview"))
-      this.applyEffectForReview(path, filterType, compressQuality, isBase64Image,weight, callbackContext);
+      this.applyEffectForReview(path, filters, compressQuality, isBase64Image, callbackContext);
       else if (action.equals("applyEffectForThumbnail"))
-      this.applyEffectForThumbnail(path, filterType, compressQuality, isBase64Image,weight, callbackContext);
+      this.applyEffectForThumbnail(path, filters, compressQuality, isBase64Image, callbackContext);
       return true;
     }else if (action.equals("cropImage")) {
       cordova.getThreadPool().execute(new Runnable() {
@@ -218,16 +219,16 @@ public class ImageFilter extends CordovaPlugin {
     if (requestCode == Crop.REQUEST_CROP) {
       if (resultCode == Activity.RESULT_OK) {
         try{
-        InputStream is = context.getContentResolver().openInputStream(Crop.getOutput(intent));
-        Bitmap imageUri = BitmapFactory.decodeStream(is);
-        is.close();
-        this.processPicture(imageUri, (float) this.compressCropQuality, JPEG, this.callbackContext);
-        this.callbackContext = null;
-      }catch(IOException e){
-        this.callbackContext.error("Failed to write");
-        this.callbackContext = null;
-        e.printStackTrace();
-      }
+          InputStream is = context.getContentResolver().openInputStream(Crop.getOutput(intent));
+          Bitmap imageUri = BitmapFactory.decodeStream(is);
+          is.close();
+          this.processPicture(imageUri, (float) this.compressCropQuality, JPEG, this.callbackContext);
+          this.callbackContext = null;
+        }catch(IOException e){
+          this.callbackContext.error("Failed to write");
+          this.callbackContext = null;
+          e.printStackTrace();
+        }
       } else if (resultCode == Crop.RESULT_ERROR) {
         try {
           JSONObject err = new JSONObject();
@@ -255,10 +256,10 @@ public class ImageFilter extends CordovaPlugin {
 
   }
 
-  private void validateInput(String pathOrData, String filterType, int isBase64Image) {
+  private void validateInput(String pathOrData, int isBase64Image) {
 
     if (isBase64Image == 0) {
-      if (!StringUtils.isEmpty(pathOrData) && !StringUtils.isEmpty(filterType)
+      if (!StringUtils.isEmpty(pathOrData)
       && !pathOrData.equals(currentImagePath)) {
 
         currentImagePath = pathOrData;
@@ -274,7 +275,7 @@ public class ImageFilter extends CordovaPlugin {
         currentThumbnailImage = Bitmap.createScaledBitmap(currentPreviewImage, thumbSize.getWidth(), thumbSize.getHeight(), false);
       }
     } else if (isBase64Image == 1) {
-      if (!StringUtils.isEmpty(pathOrData) && !StringUtils.isEmpty(filterType)
+      if (!StringUtils.isEmpty(pathOrData)
       && !pathOrData.equals(base64Image)) {
         base64Image = pathOrData;
 
@@ -297,253 +298,283 @@ public class ImageFilter extends CordovaPlugin {
     return Bitmap.createScaledBitmap(currentPreviewImage, thumbSize.getWidth(), thumbSize.getHeight(), false);
   }
 
-  private void applyEffect(String pathOrData, final String filterType, final double compressQuality, int isBase64Image,final double weight, CallbackContext callbackContext) {
+  private void applyEffect(String pathOrData, final JSONArray filters, final double compressQuality, int isBase64Image, CallbackContext callbackContext) {
     synchronized (this) {
-      this.validateInput(pathOrData, filterType, isBase64Image);
+      this.validateInput(pathOrData, isBase64Image);
 
-      Bitmap bmp = null;
-      GPUImage editingGPUImage = new GPUImage(context);
-      editingGPUImage.setImage(currentEditingImage);
+      Bitmap bmp = currentEditingImage;
 
-      if (filterType.equals("aged"))
-      bmp = applyAgedEffect(editingGPUImage);
-      else if (filterType.equals("blackWhite"))
-      bmp = applyBlackWhiteEffect(editingGPUImage);
-      else if (filterType.equals("cold"))
-      bmp = applyColdEffect(editingGPUImage);
-      else if (filterType.equals("rosy"))
-      bmp = applyRosyEffect(editingGPUImage);
-      else if (filterType.equals("intense"))
-      bmp = applyIntenseEffect(editingGPUImage);
-      else if (filterType.equals("warm"))
-      bmp = applyWarmEffect(editingGPUImage);
-      else if (filterType.equals("light"))
-      bmp = applyLightEffect(editingGPUImage);
-      else bmp = applyStandardEffect(editingGPUImage,filterType, (float) weight);
+      for(int i =0;i<filters.length();i++){
+        try{
+          GPUImage editingGPUImage = new GPUImage(context);
+          editingGPUImage.setImage(bmp);
+          JSONObject filter = filters.getJSONObject(i);
+          String filterType = filter.getString("filter");
+          double weight = filter.getDouble("weight");
+          if (filterType.equals("aged"))
+          bmp = applyAgedEffect(editingGPUImage);
+          else if (filterType.equals("blackWhite"))
+          bmp = applyBlackWhiteEffect(editingGPUImage);
+          else if (filterType.equals("cold"))
+          bmp = applyColdEffect(editingGPUImage);
+          else if (filterType.equals("rosy"))
+          bmp = applyRosyEffect(editingGPUImage);
+          else if (filterType.equals("intense"))
+          bmp = applyIntenseEffect(editingGPUImage);
+          else if (filterType.equals("warm"))
+          bmp = applyWarmEffect(editingGPUImage);
+          else if (filterType.equals("light"))
+          bmp = applyLightEffect(editingGPUImage);
+          else{
+            Bitmap tmpBmp = applyStandardEffect(editingGPUImage,filterType, (float) weight);
+            if(tmpBmp != null){
+              bmp = tmpBmp;
+            }
+          }        }catch(JSONException e){
 
-      processPicture(bmp, (float) compressQuality, JPEG, callbackContext);
-    }
-  }
-
-  private void applyEffectForReview(String pathOrData, final String filterType, final double compressQuality, int isBase64Image,final double weight, CallbackContext callbackContext) {
-    synchronized (this) {
-      this.validateInput(pathOrData, filterType, isBase64Image);
-
-      Bitmap bmp = null;
-      GPUImage previewGPUImage = new GPUImage(context);
-      previewGPUImage.setImage(currentPreviewImage);
-
-      if (filterType.equals("aged"))
-      bmp = applyAgedEffect(previewGPUImage);
-      else if (filterType.equals("blackWhite"))
-      bmp = applyBlackWhiteEffect(previewGPUImage);
-      else if (filterType.equals("cold"))
-      bmp = applyColdEffect(previewGPUImage);
-      else if (filterType.equals("rosy"))
-      bmp = applyRosyEffect(previewGPUImage);
-      else if (filterType.equals("intense"))
-      bmp = applyIntenseEffect(previewGPUImage);
-      else if (filterType.equals("warm"))
-      bmp = applyWarmEffect(previewGPUImage);
-      else if (filterType.equals("light"))
-      bmp = applyLightEffect(previewGPUImage);
-      else bmp = applyStandardEffect(previewGPUImage,filterType, (float) weight);
-
-      processPicture(bmp, (float) compressQuality, JPEG, callbackContext);
-    }
-  }
-
-  private void applyEffectForThumbnail(final String pathOrData, final String filterType, final double compressQuality, final int isBase64Image,final double weight, final CallbackContext callbackContext) {
-    validateInput(pathOrData, filterType, isBase64Image);
-
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        Bitmap thumb = getThumbnailImage();
-        Bitmap bmp = null;
-        GPUImage thumbnailGPUImage = new GPUImage(context);
-        thumbnailGPUImage.setImage(thumb);
-
-        if (filterType.equals("aged"))
-        bmp = applyAgedEffect(thumbnailGPUImage);
-        else if (filterType.equals("blackWhite"))
-        bmp = applyBlackWhiteEffect(thumbnailGPUImage);
-        else if (filterType.equals("cold"))
-        bmp = applyColdEffect(thumbnailGPUImage);
-        else if (filterType.equals("rosy"))
-        bmp = applyRosyEffect(thumbnailGPUImage);
-        else if (filterType.equals("intense"))
-        bmp = applyIntenseEffect(thumbnailGPUImage);
-        else if (filterType.equals("warm"))
-        bmp = applyWarmEffect(thumbnailGPUImage);
-        else if (filterType.equals("light"))
-        bmp = applyLightEffect(thumbnailGPUImage);
-        else bmp = applyStandardEffect(thumbnailGPUImage,filterType, (float) weight);
-
+          }
+        }
         processPicture(bmp, (float) compressQuality, JPEG, callbackContext);
       }
-    }).start();
-  }
-
-  private Bitmap applyAgedEffect(GPUImage img) {
-    return this.applyFilter(img, 0.00516f, 0.04124f, 0.8763f, 0.7474f, 0.1804f, 1.0103f,
-    NOT_AVAILABLE, 0.7835f, 0.719f, 0.616f);
-  }
-
-  private Bitmap applyBlackWhiteEffect(GPUImage img) {
-    return this.applyFilter(img, 0.0f, NOT_AVAILABLE, NOT_AVAILABLE, 1.2282f, 0.2062f, 0.268f,
-    NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-  }
-
-  private Bitmap applyRosyEffect(GPUImage img) {
-    return this.applyFilter(img, 0.79897f, -0.164948f, 0.819588f, 0.881443f, 0.474227f, NOT_AVAILABLE,
-    NOT_AVAILABLE, NOT_AVAILABLE, 0.822165f, 0.876289f);
-  }
-
-  private Bitmap applyIntenseEffect(GPUImage img) {
-    return this.applyFilter(img, 2f, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, 0.12371f,
-    NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-  }
-
-  private Bitmap applyWarmEffect(GPUImage img) {
-    return this.applyFilter(img, 1.2577f, -0.085f, 0.964f, 0.8763f, 0.4536f,
-    NOT_AVAILABLE, NOT_AVAILABLE, 0.83f, 0.8092f, 0.7938f);
-  }
-
-  private Bitmap applyLightEffect(GPUImage img) {
-    return this.applyFilter(img, 1.4484f, -0.0592f, 0.7629f, 0.7835f, 0.4124f, -0.0825f,
-    NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-  }
-
-  private Bitmap applyColdEffect(GPUImage img) {
-    return this.applyFilter(img, 0.216495f, -0.134021f, 0.85567f, 1.061856f, 0.603093f, NOT_AVAILABLE,
-    NOT_AVAILABLE, 0.708763f, 0.832474f, NOT_AVAILABLE);
-  }
-
-  private Bitmap applyStandardEffect(GPUImage img,String filterType, float weight) {
-    switch(filterType){
-      case "saturation":
-      return this.applyFilter(img, weight, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
-      NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      case "brightness":
-      return this.applyFilter(img, NOT_AVAILABLE, weight, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
-      NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      case "contrast":
-      return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, weight, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
-      NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      case "gamma":
-      return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, weight, NOT_AVAILABLE, NOT_AVAILABLE,
-      NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      case "exposure":
-      return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, weight, NOT_AVAILABLE,
-      NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      case "sharpen":
-      return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, weight,
-      NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      case "hue":
-      return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
-      weight, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-      case "red":
-      return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
-      NOT_AVAILABLE, weight, NOT_AVAILABLE, NOT_AVAILABLE);
-      case "green":
-      return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
-      NOT_AVAILABLE, NOT_AVAILABLE, weight, NOT_AVAILABLE);
-      case "blue":
-      return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
-      NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, weight);
-      default:
-      return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
-      NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
-    }
-  }
-
-  private Bitmap applyFilter(GPUImage img, float saturation, float brightness, float contrast, float gamma, float exposure, float sharpen, float hue,
-  float red, float green, float blue) {
-
-    GPUImageFilterGroup group = new GPUImageFilterGroup();
-
-    if (saturation != NOT_AVAILABLE) {
-      GPUImageSaturationFilter saturationFilter = new GPUImageSaturationFilter();
-      saturationFilter.setSaturation(saturation);
-      group.addFilter(saturationFilter);
-    }
-    if (brightness != NOT_AVAILABLE) {
-      GPUImageBrightnessFilter brightnessFilter = new GPUImageBrightnessFilter();
-      brightnessFilter.setBrightness(brightness);
-      group.addFilter(brightnessFilter);
-    }
-    if (contrast != NOT_AVAILABLE) {
-      GPUImageContrastFilter contrastFilter = new GPUImageContrastFilter();
-      contrastFilter.setContrast(contrast);
-      group.addFilter(contrastFilter);
-    }
-    if (gamma != NOT_AVAILABLE) {
-      GPUImageGammaFilter gammaFilter = new GPUImageGammaFilter();
-      gammaFilter.setGamma(gamma);
-      group.addFilter(gammaFilter);
-    }
-    if (exposure != NOT_AVAILABLE) {
-      GPUImageExposureFilter exposureFilter = new GPUImageExposureFilter();
-      exposureFilter.setExposure(exposure);
-      group.addFilter(exposureFilter);
-    }
-    if (sharpen != NOT_AVAILABLE) {
-      GPUImageSharpenFilter sharpenFilter = new GPUImageSharpenFilter();
-      sharpenFilter.setSharpness(sharpen);
-      group.addFilter(sharpenFilter);
-    }
-    if (hue != NOT_AVAILABLE) {
-      GPUImageHueFilter hueFilter = new GPUImageHueFilter();
-      hueFilter.setHue(hue);
-      group.addFilter(hueFilter);
-    }
-    if (red != NOT_AVAILABLE || green != NOT_AVAILABLE || blue != NOT_AVAILABLE) {
-      GPUImageRGBFilter rgbFilter = new GPUImageRGBFilter();
-      if (red != NOT_AVAILABLE)
-      rgbFilter.setRed(red);
-      if (green != NOT_AVAILABLE)
-      rgbFilter.setGreen(green);
-      if (blue != NOT_AVAILABLE)
-      rgbFilter.setBlue(blue);
-      group.addFilter(rgbFilter);
     }
 
-    img.setFilter(group);
-    return img.getBitmapWithFilterApplied();
-  }
+    private void applyEffectForReview(String pathOrData, final JSONArray filters, final double compressQuality, int isBase64Image, CallbackContext callbackContext) {
+      synchronized (this) {
+        this.validateInput(pathOrData, isBase64Image);
 
-  public void failPicture(String err) {
-    this.callbackContext.error(err);
-  }
+        Bitmap bmp = currentPreviewImage;
 
-  private void processPicture(Bitmap bitmap, float compressQuality, int encodingType, CallbackContext callbackContext) {
-    synchronized (this) {
-      ByteArrayOutputStream jpeg_data = new ByteArrayOutputStream();
-      CompressFormat compressFormat = encodingType == JPEG ?
-      CompressFormat.JPEG :
-      CompressFormat.PNG;
+        for(int i =0;i<filters.length();i++){
+          try{
+            GPUImage previewGPUImage = new GPUImage(context);
+            previewGPUImage.setImage(bmp);
+            JSONObject filter = filters.getJSONObject(i);
+            String filterType = filter.getString("filter");
+            double weight = filter.getDouble("weight");
+            if (filterType.equals("aged"))
+            bmp = applyAgedEffect(previewGPUImage);
+            else if (filterType.equals("blackWhite"))
+            bmp = applyBlackWhiteEffect(previewGPUImage);
+            else if (filterType.equals("cold"))
+            bmp = applyColdEffect(previewGPUImage);
+            else if (filterType.equals("rosy"))
+            bmp = applyRosyEffect(previewGPUImage);
+            else if (filterType.equals("intense"))
+            bmp = applyIntenseEffect(previewGPUImage);
+            else if (filterType.equals("warm"))
+            bmp = applyWarmEffect(previewGPUImage);
+            else if (filterType.equals("light"))
+            bmp = applyLightEffect(previewGPUImage);
+            else{
+              Bitmap tmpBmp = applyStandardEffect(previewGPUImage,filterType, (float) weight);
+              if(tmpBmp != null){
+                bmp = tmpBmp;
+              }
+            }        }catch(JSONException e){
 
-      try {
-        if (bitmap.compress(compressFormat, 100, jpeg_data)) {
-          byte[] code = jpeg_data.toByteArray();
-          byte[] output = Base64.encode(code, Base64.NO_WRAP);
-          String js_out = new String(output);
-          callbackContext.success(js_out);
-          js_out = null;
-          output = null;
-          code = null;
+            }
+          }
+          processPicture(bmp, (float) compressQuality, JPEG, callbackContext);
         }
-      } catch (Exception e) {
-        this.failPicture("Error compressing image.");
       }
-      if(bitmap != null) bitmap.recycle();
-      jpeg_data = null;
-    }
-  }
 
-  private Bitmap base64ToBitmap(String encodedImage) {
-    byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
-    return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-  }
-}
+      private void applyEffectForThumbnail(final String pathOrData, final JSONArray filters, final double compressQuality, final int isBase64Image, final CallbackContext callbackContext) {
+        validateInput(pathOrData, isBase64Image);
+        Bitmap thumb = getThumbnailImage();
+        Bitmap bmp = thumb;
+
+        for(int i =0;i<filters.length();i++){
+          try{
+            GPUImage thumbnailGPUImage = new GPUImage(context);
+            thumbnailGPUImage.setImage(bmp);
+            JSONObject filter = filters.getJSONObject(i);
+            String filterType = filter.getString("filter");
+            double weight = filter.getDouble("weight");
+            if (filterType.equals("aged"))
+            bmp = applyAgedEffect(thumbnailGPUImage);
+            else if (filterType.equals("blackWhite"))
+            bmp = applyBlackWhiteEffect(thumbnailGPUImage);
+            else if (filterType.equals("cold"))
+            bmp = applyColdEffect(thumbnailGPUImage);
+            else if (filterType.equals("rosy"))
+            bmp = applyRosyEffect(thumbnailGPUImage);
+            else if (filterType.equals("intense"))
+            bmp = applyIntenseEffect(thumbnailGPUImage);
+            else if (filterType.equals("warm"))
+            bmp = applyWarmEffect(thumbnailGPUImage);
+            else if (filterType.equals("light"))
+            bmp = applyLightEffect(thumbnailGPUImage);
+            else{
+              Bitmap tmpBmp = applyStandardEffect(thumbnailGPUImage,filterType, (float) weight);
+              if(tmpBmp != null){
+                bmp = tmpBmp;
+              }
+            }
+          }catch(JSONException e){
+
+          }
+        }
+        processPicture(bmp, (float) compressQuality, JPEG, callbackContext);
+      }
+
+      private Bitmap applyAgedEffect(GPUImage img) {
+        return this.applyFilter(img, 0.00516f, 0.04124f, 0.8763f, 0.7474f, 0.1804f, 1.0103f,
+        NOT_AVAILABLE, 0.7835f, 0.719f, 0.616f);
+      }
+
+      private Bitmap applyBlackWhiteEffect(GPUImage img) {
+        return this.applyFilter(img, 0.0f, NOT_AVAILABLE, NOT_AVAILABLE, 1.2282f, 0.2062f, 0.268f,
+        NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
+      }
+
+      private Bitmap applyRosyEffect(GPUImage img) {
+        return this.applyFilter(img, 0.79897f, -0.164948f, 0.819588f, 0.881443f, 0.474227f, NOT_AVAILABLE,
+        NOT_AVAILABLE, NOT_AVAILABLE, 0.822165f, 0.876289f);
+      }
+
+      private Bitmap applyIntenseEffect(GPUImage img) {
+        return this.applyFilter(img, 2f, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, 0.12371f,
+        NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
+      }
+
+      private Bitmap applyWarmEffect(GPUImage img) {
+        return this.applyFilter(img, 1.2577f, -0.085f, 0.964f, 0.8763f, 0.4536f,
+        NOT_AVAILABLE, NOT_AVAILABLE, 0.83f, 0.8092f, 0.7938f);
+      }
+
+      private Bitmap applyLightEffect(GPUImage img) {
+        return this.applyFilter(img, 1.4484f, -0.0592f, 0.7629f, 0.7835f, 0.4124f, -0.0825f,
+        NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
+      }
+
+      private Bitmap applyColdEffect(GPUImage img) {
+        return this.applyFilter(img, 0.216495f, -0.134021f, 0.85567f, 1.061856f, 0.603093f, NOT_AVAILABLE,
+        NOT_AVAILABLE, 0.708763f, 0.832474f, NOT_AVAILABLE);
+      }
+
+      private Bitmap applyStandardEffect(GPUImage img,String filterType, float weight) {
+        System.out.println("---------------------------------------------" + weight + "---------------------------------------------" + filterType);
+        if(filterType.equals("saturation")){
+          return this.applyFilter(img, weight, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
+          NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
+        }else if(filterType.equals("brightness")){
+          return this.applyFilter(img, NOT_AVAILABLE, weight, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
+          NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
+        }else if(filterType.equals("contrast")){
+          return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, weight, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
+          NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
+        }  else if(filterType.equals("gamma")){
+          return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, weight, NOT_AVAILABLE, NOT_AVAILABLE,
+          NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
+        } else if(filterType.equals("exposure")){
+          return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, weight, NOT_AVAILABLE,
+          NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
+        } else if(filterType.equals("sharpen")){
+          return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, weight,
+          NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
+        } else if(filterType.equals("hue")){
+          return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
+          weight, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE);
+        } else if(filterType.equals("red")){
+          return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
+          NOT_AVAILABLE, weight, NOT_AVAILABLE, NOT_AVAILABLE);
+        } else if(filterType.equals("green")){
+          return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
+          NOT_AVAILABLE, NOT_AVAILABLE, weight, NOT_AVAILABLE);
+        } else if(filterType.equals("blue")){
+          return this.applyFilter(img, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE,
+          NOT_AVAILABLE, NOT_AVAILABLE, NOT_AVAILABLE, weight);
+        }
+
+        return null;
+      }
+
+      private Bitmap applyFilter(GPUImage img, float saturation, float brightness, float contrast, float gamma, float exposure, float sharpen, float hue,
+      float red, float green, float blue) {
+
+        GPUImageFilterGroup group = new GPUImageFilterGroup();
+
+        if (saturation != NOT_AVAILABLE) {
+          GPUImageSaturationFilter saturationFilter = new GPUImageSaturationFilter();
+          saturationFilter.setSaturation(saturation);
+          group.addFilter(saturationFilter);
+        }
+        if (brightness != NOT_AVAILABLE) {
+          GPUImageBrightnessFilter brightnessFilter = new GPUImageBrightnessFilter();
+          brightnessFilter.setBrightness(brightness);
+          group.addFilter(brightnessFilter);
+        }
+        if (contrast != NOT_AVAILABLE) {
+          GPUImageContrastFilter contrastFilter = new GPUImageContrastFilter();
+          contrastFilter.setContrast(contrast);
+          group.addFilter(contrastFilter);
+        }
+        if (gamma != NOT_AVAILABLE) {
+          GPUImageGammaFilter gammaFilter = new GPUImageGammaFilter();
+          gammaFilter.setGamma(gamma);
+          group.addFilter(gammaFilter);
+        }
+        if (exposure != NOT_AVAILABLE) {
+          GPUImageExposureFilter exposureFilter = new GPUImageExposureFilter();
+          exposureFilter.setExposure(exposure);
+          group.addFilter(exposureFilter);
+        }
+        if (sharpen != NOT_AVAILABLE) {
+          GPUImageSharpenFilter sharpenFilter = new GPUImageSharpenFilter();
+          sharpenFilter.setSharpness(sharpen);
+          group.addFilter(sharpenFilter);
+        }
+        if (hue != NOT_AVAILABLE) {
+          GPUImageHueFilter hueFilter = new GPUImageHueFilter();
+          hueFilter.setHue(hue);
+          group.addFilter(hueFilter);
+        }
+        if (red != NOT_AVAILABLE || green != NOT_AVAILABLE || blue != NOT_AVAILABLE) {
+          GPUImageRGBFilter rgbFilter = new GPUImageRGBFilter();
+          if (red != NOT_AVAILABLE)
+          rgbFilter.setRed(red);
+          if (green != NOT_AVAILABLE)
+          rgbFilter.setGreen(green);
+          if (blue != NOT_AVAILABLE)
+          rgbFilter.setBlue(blue);
+          group.addFilter(rgbFilter);
+        }
+
+        img.setFilter(group);
+        return img.getBitmapWithFilterApplied();
+      }
+
+      public void failPicture(String err) {
+        this.callbackContext.error(err);
+      }
+
+      private void processPicture(Bitmap bitmap, float compressQuality, int encodingType, CallbackContext callbackContext) {
+        synchronized (this) {
+          ByteArrayOutputStream jpeg_data = new ByteArrayOutputStream();
+          CompressFormat compressFormat = encodingType == JPEG ?
+          CompressFormat.JPEG :
+          CompressFormat.PNG;
+
+          try {
+            if (bitmap.compress(compressFormat, 100, jpeg_data)) {
+              byte[] code = jpeg_data.toByteArray();
+              byte[] output = Base64.encode(code, Base64.NO_WRAP);
+              String js_out = new String(output);
+              callbackContext.success(js_out);
+              js_out = null;
+              output = null;
+              code = null;
+            }
+          } catch (Exception e) {
+            this.failPicture("Error compressing image.");
+          }
+          if(bitmap != null) bitmap.recycle();
+          jpeg_data = null;
+        }
+      }
+
+      private Bitmap base64ToBitmap(String encodedImage) {
+        byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+      }
+    }
