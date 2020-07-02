@@ -13,8 +13,10 @@ import android.os.Environment;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import org.apache.cordova.PluginResult;
-import com.soundcloud.android.crop.Crop;
+import com.soundcloud.android.crop.*;
 import android.widget.ImageView;
+import android.media.ExifInterface;
+
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cordova.CordovaPlugin;
@@ -23,12 +25,14 @@ import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.graphics.Matrix;
 
 import java.io.File;
 import java.io.OutputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -265,7 +269,7 @@ public class ImageFilter extends CordovaPlugin {
         currentImagePath = pathOrData;
         pathOrData = pathOrData.substring(7);
 
-        currentEditingImage = BitmapFactory.decodeFile(pathOrData);
+        currentEditingImage = base64ToBitmap(pathOrData);
 
         float ratio = (float) screenSize.getWidth() / (float) currentEditingImage.getWidth();
         MySize newSize = new MySize(Math.round(currentEditingImage.getWidth() * ratio), Math.round(currentEditingImage.getHeight() * ratio));
@@ -278,7 +282,6 @@ public class ImageFilter extends CordovaPlugin {
       if (!StringUtils.isEmpty(pathOrData)
       && !pathOrData.equals(base64Image)) {
         base64Image = pathOrData;
-
         currentEditingImage = base64ToBitmap(pathOrData);
 
         float ratio = (float) screenSize.getWidth() / (float) currentEditingImage.getWidth();
@@ -575,6 +578,58 @@ public class ImageFilter extends CordovaPlugin {
 
       private Bitmap base64ToBitmap(String encodedImage) {
         byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        try{
+          Bitmap tmpcurrentEditingImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+          InputStream targetStream = new ByteArrayInputStream(decodedString);
+          ExifInterface exif = new ExifInterface(targetStream);
+          System.out.println("Exif interface value is: " + exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL));
+          return rotateBitmap(tmpcurrentEditingImage,exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL));
+        }catch(IOException e){
+          return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        }
       }
+
+      private Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
+        Matrix matrix = new Matrix();
+        switch (orientation) {
+          case ExifInterface.ORIENTATION_NORMAL:
+          return bitmap;
+          case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
+          matrix.setScale(-1, 1);
+          break;
+          case ExifInterface.ORIENTATION_ROTATE_180:
+          matrix.setRotate(180);
+          break;
+          case ExifInterface.ORIENTATION_FLIP_VERTICAL:
+          matrix.setRotate(180);
+          matrix.postScale(-1, 1);
+          break;
+          case ExifInterface.ORIENTATION_TRANSPOSE:
+          matrix.setRotate(90);
+          matrix.postScale(-1, 1);
+          break;
+          case ExifInterface.ORIENTATION_ROTATE_90:
+          matrix.setRotate(90);
+          break;
+          case ExifInterface.ORIENTATION_TRANSVERSE:
+          matrix.setRotate(-90);
+          matrix.postScale(-1, 1);
+          break;
+          case ExifInterface.ORIENTATION_ROTATE_270:
+          matrix.setRotate(-90);
+          break;
+          default:
+          return bitmap;
+        }
+        try {
+          Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+          bitmap.recycle();
+          return bmRotated;
+        }
+        catch (OutOfMemoryError e) {
+          e.printStackTrace();
+          return null;
+        }
+      }
+
     }
