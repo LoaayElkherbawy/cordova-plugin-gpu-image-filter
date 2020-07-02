@@ -71,7 +71,6 @@ static UIImage * base64ToImage(NSString *base64Image) {
 
   if ([isBase64Image intValue] == 0)
   {
-    if (pathOrData.length && ![currentImagePath isEqualToString:pathOrData]) {
       currentImagePath = pathOrData;
       currentEditingImage = [UIImage imageWithContentsOfFile:pathOrData];
 
@@ -87,10 +86,8 @@ static UIImage * base64ToImage(NSString *base64Image) {
       [currentPreviewImage drawInRect:CGRectMake(0, 0, thumbnailSize.width, thumbnailSize.height)];
       currentThumbnailImage = UIGraphicsGetImageFromCurrentImageContext();
       UIGraphicsEndImageContext();
-    }
   }
   else if ([isBase64Image intValue] == 1) {
-    if (pathOrData.length && ![pathOrData isEqualToString:base64Image]) {
       base64Image = pathOrData;
       currentEditingImage = base64ToImage(pathOrData);
 
@@ -106,7 +103,6 @@ static UIImage * base64ToImage(NSString *base64Image) {
       [currentPreviewImage drawInRect:CGRectMake(0, 0, thumbnailSize.width, thumbnailSize.height)];
       currentThumbnailImage = UIGraphicsGetImageFromCurrentImageContext();
       UIGraphicsEndImageContext();
-    }
   }
   else {
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
