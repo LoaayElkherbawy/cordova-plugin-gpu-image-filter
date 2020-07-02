@@ -66,12 +66,12 @@ static UIImage * base64ToImage(NSString *base64Image) {
   NSString *pathOrData = [command argumentAtIndex:0 withDefault:nil];
   NSURL *pathUrl = [NSURL URLWithString:pathOrData];
   pathOrData = pathUrl.path;
-  NSString *filterType = [command argumentAtIndex:1 withDefault:nil];
-  NSNumber *isBase64Image = [command argumentAtIndex:4 withDefault:@(0)];
+    
+  NSNumber *isBase64Image = [command argumentAtIndex:3 withDefault:@(0)];
 
   if ([isBase64Image intValue] == 0)
   {
-    if (pathOrData.length && filterType.length && ![currentImagePath isEqualToString:pathOrData]) {
+    if (pathOrData.length && ![currentImagePath isEqualToString:pathOrData]) {
       currentImagePath = pathOrData;
       currentEditingImage = [UIImage imageWithContentsOfFile:pathOrData];
 
@@ -90,7 +90,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
     }
   }
   else if ([isBase64Image intValue] == 1) {
-    if (pathOrData.length && filterType.length && ![pathOrData isEqualToString:base64Image]) {
+    if (pathOrData.length && ![pathOrData isEqualToString:base64Image]) {
       base64Image = pathOrData;
       currentEditingImage = base64ToImage(pathOrData);
 
@@ -117,11 +117,16 @@ static UIImage * base64ToImage(NSString *base64Image) {
 - (void)applyEffect:(CDVInvokedUrlCommand*)command {
   [self validateInput:command];
 
-  NSString *filterType = [command argumentAtIndex:1 withDefault:nil];
-  NSNumber *compressionQuality = [command argumentAtIndex:3 withDefault:@(0.5)];
-  NSNumber *weight = [command argumentAtIndex:2 withDefault:nil];
-
-  [self filterImage:currentEditingImage filter:filterType compressionQuality:compressionQuality weight:weight completion:^(NSData *data) {
+  NSArray *filters = [command argumentAtIndex:1 withDefault:nil];
+  NSNumber *compressionQuality = [command argumentAtIndex:2 withDefault:@(1)];
+  NSDictionary *filter;
+  for(filter in filters){
+      NSString *filterType = filter[@"filter"];
+      NSNumber *weight = filter[@"weight"];
+      currentEditingImage = [self applyImage:currentEditingImage filter:filterType compressionQuality:compressionQuality weight:weight];
+  }
+    
+  [self filterImage:currentEditingImage compressionQuality:compressionQuality completion:^(NSData *data) {
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
     dispatch_sync(dispatch_get_main_queue(), ^{
       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
@@ -148,7 +153,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
   CGFloat length = MIN(width, height);
   cropController.toolbarHidden = YES;
   cropController.rotationEnabled = NO;
-  cropController.keepingCropAspectRatio = NO;
+  cropController.keepingCropAspectRatio = YES;
 
   cropController.imageCropRect = CGRectMake((width - length) / 2,
   (height - length) / 2,
@@ -168,11 +173,15 @@ static UIImage * base64ToImage(NSString *base64Image) {
 - (void)applyEffectForReview:(CDVInvokedUrlCommand*)command {
   [self validateInput:command];
 
-  NSString *filterType = [command argumentAtIndex:1 withDefault:nil];
-  NSNumber *compressionQuality = [command argumentAtIndex:3 withDefault:@(0.5)];
-  NSNumber *weight = [command argumentAtIndex:2 withDefault:nil];
-
-  [self filterImage:currentPreviewImage filter:filterType compressionQuality:compressionQuality weight:weight completion:^(NSData *data) {
+  NSArray *filters = [command argumentAtIndex:1 withDefault:nil];
+  NSNumber *compressionQuality = [command argumentAtIndex:2 withDefault:@(1)];
+  NSDictionary *filter;
+  for(filter in filters){
+      NSString *filterType = filter[@"filter"];
+      NSNumber *weight = filter[@"weight"];
+      currentPreviewImage = [self applyImage:currentPreviewImage filter:filterType compressionQuality:compressionQuality weight:weight];
+  }
+  [self filterImage:currentPreviewImage compressionQuality:compressionQuality completion:^(NSData *data) {
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
     dispatch_sync(dispatch_get_main_queue(), ^{
       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
@@ -183,11 +192,16 @@ static UIImage * base64ToImage(NSString *base64Image) {
 - (void)applyEffectForThumbnail:(CDVInvokedUrlCommand *)command {
   [self validateInput:command];
 
-  NSString *filterType = [command argumentAtIndex:1 withDefault:nil];
-  NSNumber *compressionQuality = [command argumentAtIndex:3 withDefault:@(0.5)];
-  NSNumber *weight = [command argumentAtIndex:2 withDefault:nil];
-
-  [self filterImage:currentThumbnailImage filter:filterType compressionQuality:compressionQuality weight:weight completion:^(NSData *data) {
+    NSArray *filters = [command argumentAtIndex:1 withDefault:nil];
+    NSNumber *compressionQuality = [command argumentAtIndex:2 withDefault:@(1)];
+    NSDictionary *filter;
+    for(filter in filters){
+        NSString *filterType = filter[@"filter"];
+        NSNumber *weight = filter[@"weight"];
+        currentThumbnailImage = [self applyImage:currentThumbnailImage filter:filterType compressionQuality:compressionQuality weight:weight];
+    }
+    
+  [self filterImage:currentThumbnailImage compressionQuality:compressionQuality completion:^(NSData *data) {
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
     dispatch_sync(dispatch_get_main_queue(), ^{
       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
@@ -195,11 +209,14 @@ static UIImage * base64ToImage(NSString *base64Image) {
   }];
 }
 
-- (void)filterImage:(UIImage *)image filter:(NSString *)filterType compressionQuality:(NSNumber *)quality weight:(NSNumber *)weight completion:(void(^)(NSData *))completion {
+- (UIImage *)applyImage:(UIImage *)image filter:(NSString *)filterType compressionQuality:(NSNumber *)quality weight:(NSNumber *)weight {
+      return [self applySelectedEffect:image effect:filterType weight:weight];
+}
+
+- (void)filterImage:(UIImage *)image compressionQuality:(NSNumber *)quality completion:(void(^)(NSData *))completion {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     @autoreleasepool {
-      UIImage *result = [self applySelectedEffect:image effect:filterType weight:weight];
-      NSData *data = UIImageJPEGRepresentation(result, [quality floatValue]);
+      NSData *data = UIImageJPEGRepresentation(image, [quality floatValue]);
       completion(data);
     }
   });
@@ -524,15 +541,16 @@ static UIImage * base64ToImage(NSString *base64Image) {
     tmp = filter;
   }
 
-  if(filters.count > 0){
+ 
   GPUImageFilterGroup *group = [GPUImageFilterGroup new];
+    if(filters.count > 0){
   [group setInitialFilters:[NSArray arrayWithObject:filters.firstObject]];
   [group setTerminalFilter:filters.lastObject];
 
   result = [group imageByFilteringImage:image];
-}else{
-  result = image;
-}
+    }else{
+        result = image;
+    }
 
   return result;
 }
