@@ -66,7 +66,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
   NSString *pathOrData = [command argumentAtIndex:0 withDefault:nil];
   NSURL *pathUrl = [NSURL URLWithString:pathOrData];
   pathOrData = pathUrl.path;
-    
+
   NSNumber *isBase64Image = [command argumentAtIndex:3 withDefault:@(0)];
 
   if ([isBase64Image intValue] == 0)
@@ -125,7 +125,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
       NSNumber *weight = filter[@"weight"];
       currentEditingImage = [self applyImage:currentEditingImage filter:filterType compressionQuality:compressionQuality weight:weight];
   }
-    
+
   [self filterImage:currentEditingImage compressionQuality:compressionQuality completion:^(NSData *data) {
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
     dispatch_sync(dispatch_get_main_queue(), ^{
@@ -153,7 +153,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
   CGFloat length = MIN(width, height);
   cropController.toolbarHidden = YES;
   cropController.rotationEnabled = NO;
-  cropController.keepingCropAspectRatio = YES;
+  cropController.keepingCropAspectRatio = NO;
 
   cropController.imageCropRect = CGRectMake((width - length) / 2,
   (height - length) / 2,
@@ -200,7 +200,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
         NSNumber *weight = filter[@"weight"];
         currentThumbnailImage = [self applyImage:currentThumbnailImage filter:filterType compressionQuality:compressionQuality weight:weight];
     }
-    
+
   [self filterImage:currentThumbnailImage compressionQuality:compressionQuality completion:^(NSData *data) {
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
     dispatch_sync(dispatch_get_main_queue(), ^{
@@ -541,7 +541,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
     tmp = filter;
   }
 
- 
+
   GPUImageFilterGroup *group = [GPUImageFilterGroup new];
     if(filters.count > 0){
   [group setInitialFilters:[NSArray arrayWithObject:filters.firstObject]];
