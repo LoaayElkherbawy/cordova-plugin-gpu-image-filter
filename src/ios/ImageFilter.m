@@ -15,6 +15,8 @@
 @property (assign) NSUInteger quality;
 @property (assign) NSUInteger targetWidth;
 @property (assign) NSUInteger targetHeight;
+@property (assign) NSUInteger widthRatio;
+@property (assign) NSUInteger heightRatio;
 @end
 
 @implementation ImageFilter
