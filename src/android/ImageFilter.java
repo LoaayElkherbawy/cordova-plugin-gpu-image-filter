@@ -186,6 +186,8 @@ public class ImageFilter extends CordovaPlugin {
       currentEditingImage = base64ToBitmap(imagePath);
       compressCropQuality = options.getDouble("quality");
 
+      int widthRatio = options.getInt("widthRatio");
+      int heightRatio = options.getInt("heightRatio");
       int targetWidth = options.getInt("targetWidth");
       int targetHeight = options.getInt("targetHeight");
 
@@ -202,12 +204,14 @@ public class ImageFilter extends CordovaPlugin {
       os.close();
 
       Crop crop = Crop.of(Uri.fromFile(file), Uri.fromFile(output));
-      if(targetHeight != -1 && targetWidth != -1) {
-        crop.withMaxSize(targetWidth, targetHeight);
-        if(targetWidth == targetHeight) {
-          crop.asSquare();
-        }
+      if(targetHeight > 0 && targetWidth > 0) {
+        croper.withMaxSize(targetWidth, targetHeight);
       }
+
+      if(widthRatio > 0 && heightRatio > 0){
+        croper.withAspect(widthRatio, heightRatio);
+      }
+
       crop.start(cordova.getActivity());
       return pr;
     }catch(JSONException e){

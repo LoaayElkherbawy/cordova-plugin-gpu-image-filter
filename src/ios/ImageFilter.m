@@ -71,38 +71,38 @@ static UIImage * base64ToImage(NSString *base64Image) {
 
   if ([isBase64Image intValue] == 0)
   {
-      currentImagePath = pathOrData;
-      currentEditingImage = [UIImage imageWithContentsOfFile:pathOrData];
+    currentImagePath = pathOrData;
+    currentEditingImage = [UIImage imageWithContentsOfFile:pathOrData];
 
-      float ratio = screenSize.width / currentEditingImage.size.width;
-      CGSize newSize = CGSizeMake(currentEditingImage.size.width * ratio, currentEditingImage.size.height * ratio);
-      UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-      [currentEditingImage drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-      currentPreviewImage = UIGraphicsGetImageFromCurrentImageContext();
-      UIGraphicsEndImageContext();
+    float ratio = screenSize.width / currentEditingImage.size.width;
+    CGSize newSize = CGSizeMake(currentEditingImage.size.width * ratio, currentEditingImage.size.height * ratio);
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [currentEditingImage drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    currentPreviewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
 
-      CGSize thumbnailSize = CGSizeMake(currentPreviewImage.size.width * 0.2f, currentPreviewImage.size.height * 0.2f);
-      UIGraphicsBeginImageContextWithOptions(thumbnailSize, NO, 0.0);
-      [currentPreviewImage drawInRect:CGRectMake(0, 0, thumbnailSize.width, thumbnailSize.height)];
-      currentThumbnailImage = UIGraphicsGetImageFromCurrentImageContext();
-      UIGraphicsEndImageContext();
+    CGSize thumbnailSize = CGSizeMake(currentPreviewImage.size.width * 0.2f, currentPreviewImage.size.height * 0.2f);
+    UIGraphicsBeginImageContextWithOptions(thumbnailSize, NO, 0.0);
+    [currentPreviewImage drawInRect:CGRectMake(0, 0, thumbnailSize.width, thumbnailSize.height)];
+    currentThumbnailImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
   }
   else if ([isBase64Image intValue] == 1) {
-      base64Image = pathOrData;
-      currentEditingImage = base64ToImage(pathOrData);
+    base64Image = pathOrData;
+    currentEditingImage = base64ToImage(pathOrData);
 
-      float ratio = screenSize.width / currentEditingImage.size.width;
-      CGSize newSize = CGSizeMake(currentEditingImage.size.width * ratio, currentEditingImage.size.height * ratio);
-      UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-      [currentEditingImage drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-      currentPreviewImage = UIGraphicsGetImageFromCurrentImageContext();
-      UIGraphicsEndImageContext();
+    float ratio = screenSize.width / currentEditingImage.size.width;
+    CGSize newSize = CGSizeMake(currentEditingImage.size.width * ratio, currentEditingImage.size.height * ratio);
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [currentEditingImage drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    currentPreviewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
 
-      CGSize thumbnailSize = CGSizeMake(currentPreviewImage.size.width * 0.2f, currentPreviewImage.size.height * 0.2f);
-      UIGraphicsBeginImageContextWithOptions(thumbnailSize, NO, 0.0);
-      [currentPreviewImage drawInRect:CGRectMake(0, 0, thumbnailSize.width, thumbnailSize.height)];
-      currentThumbnailImage = UIGraphicsGetImageFromCurrentImageContext();
-      UIGraphicsEndImageContext();
+    CGSize thumbnailSize = CGSizeMake(currentPreviewImage.size.width * 0.2f, currentPreviewImage.size.height * 0.2f);
+    UIGraphicsBeginImageContextWithOptions(thumbnailSize, NO, 0.0);
+    [currentPreviewImage drawInRect:CGRectMake(0, 0, thumbnailSize.width, thumbnailSize.height)];
+    currentThumbnailImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
   }
   else {
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -117,9 +117,9 @@ static UIImage * base64ToImage(NSString *base64Image) {
   NSNumber *compressionQuality = [command argumentAtIndex:2 withDefault:@(1)];
   NSDictionary *filter;
   for(filter in filters){
-      NSString *filterType = filter[@"filter"];
-      NSNumber *weight = filter[@"weight"];
-      currentEditingImage = [self applyImage:currentEditingImage filter:filterType compressionQuality:compressionQuality weight:weight];
+    NSString *filterType = filter[@"filter"];
+    NSNumber *weight = filter[@"weight"];
+    currentEditingImage = [self applyImage:currentEditingImage filter:filterType compressionQuality:compressionQuality weight:weight];
   }
 
   [self filterImage:currentEditingImage compressionQuality:compressionQuality completion:^(NSData *data) {
@@ -139,6 +139,8 @@ static UIImage * base64ToImage(NSString *base64Image) {
   self.quality = options[@"quality"] ? [options[@"quality"] intValue] : 100;
   self.targetWidth = options[@"targetWidth"] ? [options[@"targetWidth"] intValue] : -1;
   self.targetHeight = options[@"targetHeight"] ? [options[@"targetHeight"] intValue] : -1;
+  self.widthRatio = options[@"widthRatio"] ? [options[@"widthRatio"] intValue] : -1;
+  self.heightRatio = options[@"heightRatio"] ? [options[@"heightRatio"] intValue] : -1;
 
   PECropViewController *cropController = [[PECropViewController alloc] init];
   cropController.delegate = self;
@@ -146,15 +148,26 @@ static UIImage * base64ToImage(NSString *base64Image) {
 
   CGFloat width = self.targetWidth > -1 ? (CGFloat)self.targetWidth : image.size.width;
   CGFloat height = self.targetHeight > -1 ? (CGFloat)self.targetHeight : image.size.height;
-  CGFloat length = MIN(width, height);
+  CGFloat croperWidth;
+  CGFloat croperHeight;
   cropController.toolbarHidden = YES;
   cropController.rotationEnabled = NO;
-  cropController.keepingCropAspectRatio = NO;
+  cropController.keepingCropAspectRatio = YES;
 
-  cropController.imageCropRect = CGRectMake((width - length) / 2,
-  (height - length) / 2,
-  length,
-  length);
+  if (self.widthRatio < 0 || self.heightRatio < 0){
+    cropController.keepingCropAspectRatio = NO;
+    croperWidth = MIN(width, height);
+    croperHeight = MIN(width, height);
+  } else {
+    cropController.keepingCropAspectRatio = YES;
+    if(self.widthRatio > self.heightRatio) {
+      croperWidth = width;
+      croperHeight = width * self.heightRatio / self.widthRatio;
+    } else {
+      croperWidth = height * self.widthRatio / self.heightRatio;
+      croperHeight = height;
+    }
+  }
 
   self.callbackId = command.callbackId;
   UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:cropController];
@@ -173,9 +186,9 @@ static UIImage * base64ToImage(NSString *base64Image) {
   NSNumber *compressionQuality = [command argumentAtIndex:2 withDefault:@(1)];
   NSDictionary *filter;
   for(filter in filters){
-      NSString *filterType = filter[@"filter"];
-      NSNumber *weight = filter[@"weight"];
-      currentPreviewImage = [self applyImage:currentPreviewImage filter:filterType compressionQuality:compressionQuality weight:weight];
+    NSString *filterType = filter[@"filter"];
+    NSNumber *weight = filter[@"weight"];
+    currentPreviewImage = [self applyImage:currentPreviewImage filter:filterType compressionQuality:compressionQuality weight:weight];
   }
   [self filterImage:currentPreviewImage compressionQuality:compressionQuality completion:^(NSData *data) {
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
@@ -188,14 +201,14 @@ static UIImage * base64ToImage(NSString *base64Image) {
 - (void)applyEffectForThumbnail:(CDVInvokedUrlCommand *)command {
   [self validateInput:command];
 
-    NSArray *filters = [command argumentAtIndex:1 withDefault:nil];
-    NSNumber *compressionQuality = [command argumentAtIndex:2 withDefault:@(1)];
-    NSDictionary *filter;
-    for(filter in filters){
-        NSString *filterType = filter[@"filter"];
-        NSNumber *weight = filter[@"weight"];
-        currentThumbnailImage = [self applyImage:currentThumbnailImage filter:filterType compressionQuality:compressionQuality weight:weight];
-    }
+  NSArray *filters = [command argumentAtIndex:1 withDefault:nil];
+  NSNumber *compressionQuality = [command argumentAtIndex:2 withDefault:@(1)];
+  NSDictionary *filter;
+  for(filter in filters){
+    NSString *filterType = filter[@"filter"];
+    NSNumber *weight = filter[@"weight"];
+    currentThumbnailImage = [self applyImage:currentThumbnailImage filter:filterType compressionQuality:compressionQuality weight:weight];
+  }
 
   [self filterImage:currentThumbnailImage compressionQuality:compressionQuality completion:^(NSData *data) {
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:toBase64(data)];
@@ -206,7 +219,7 @@ static UIImage * base64ToImage(NSString *base64Image) {
 }
 
 - (UIImage *)applyImage:(UIImage *)image filter:(NSString *)filterType compressionQuality:(NSNumber *)quality weight:(NSNumber *)weight {
-      return [self applySelectedEffect:image effect:filterType weight:weight];
+  return [self applySelectedEffect:image effect:filterType weight:weight];
 }
 
 - (void)filterImage:(UIImage *)image compressionQuality:(NSNumber *)quality completion:(void(^)(NSData *))completion {
@@ -539,14 +552,14 @@ static UIImage * base64ToImage(NSString *base64Image) {
 
 
   GPUImageFilterGroup *group = [GPUImageFilterGroup new];
-    if(filters.count > 0){
-  [group setInitialFilters:[NSArray arrayWithObject:filters.firstObject]];
-  [group setTerminalFilter:filters.lastObject];
+  if(filters.count > 0){
+    [group setInitialFilters:[NSArray arrayWithObject:filters.firstObject]];
+    [group setTerminalFilter:filters.lastObject];
 
-  result = [group imageByFilteringImage:image];
-    }else{
-        result = image;
-    }
+    result = [group imageByFilteringImage:image];
+  }else{
+    result = image;
+  }
 
   return result;
 }

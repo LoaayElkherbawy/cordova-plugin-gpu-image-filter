@@ -17,6 +17,8 @@ exports.cropImage = function(success, fail, image, options) {
   options.quality = options.quality || 100
   options.targetWidth = options.targetWidth || -1
   options.targetHeight = options.targetHeight || -1
+  options.widthRatio = options.widthRatio || 4
+  options.heightRatio = options.heightRatio || 5
   exec(success, fail, 'ImageFilter', 'cropImage', [image, options])
 }
 
@@ -26,6 +28,8 @@ exports.cropAsync = function(image, options) {
     options.quality = options.quality || 100
     options.targetWidth = options.targetWidth || -1
     options.targetHeight = options.targetHeight || -1
+    options.widthRatio = options.widthRatio || 4
+    options.heightRatio = options.heightRatio || 5
     exec(resolve, reject, 'ImageFilter', 'cropImage', [image, options])
   });
 }
