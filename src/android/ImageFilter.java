@@ -205,11 +205,11 @@ public class ImageFilter extends CordovaPlugin {
 
       Crop crop = Crop.of(Uri.fromFile(file), Uri.fromFile(output));
       if(targetHeight > 0 && targetWidth > 0) {
-        croper.withMaxSize(targetWidth, targetHeight);
+        crop.withMaxSize(targetWidth, targetHeight);
       }
 
       if(widthRatio > 0 && heightRatio > 0){
-        croper.withAspect(widthRatio, heightRatio);
+        crop.withAspect(widthRatio, heightRatio);
       }
 
       crop.start(cordova.getActivity());
