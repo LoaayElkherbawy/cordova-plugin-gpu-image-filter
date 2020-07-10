@@ -164,9 +164,9 @@ static UIImage * base64ToImage(NSString *base64Image) {
     cropController.keepingCropAspectRatio = YES;
     if(self.widthRatio > self.heightRatio) {
       croperWidth = width;
-      croperHeight = width * self.heightRatio / self.widthRatio;
+      croperHeight = (width * self.heightRatio) / self.widthRatio;
     } else {
-      croperWidth = height * self.widthRatio / self.heightRatio;
+      croperWidth = (height * self.widthRatio) / self.heightRatio;
       croperHeight = height;
     }
   }
