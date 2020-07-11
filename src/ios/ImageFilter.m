@@ -52,7 +52,7 @@ static NSString* toBase64(NSData* data) {
 static UIImage * base64ToImage(NSString *base64Image) {
   NSData *imageData = [[NSData alloc] initWithBase64EncodedString:base64Image options:0];
   UIImage *normalizedImage = [UIImage imageWithData:imageData];
-  return [UIImage imageWithCGImage:normalizedImage.CGImage scale: 1 orientation:normalizedImage.imageOrientation];
+  return [UIImage imageWithData:imageData];
 }
 
 - (void)pluginInitialize {
