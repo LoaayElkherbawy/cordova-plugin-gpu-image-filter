@@ -264,7 +264,30 @@ public class ImageFilter extends CordovaPlugin {
 
   }
 
-  private void validateInput(String pathOrData, int isBase64Image) {
+  private static int calculateInSampleSize(
+  BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    // Raw height and width of image
+    final int height = options.outHeight;
+    final int width = options.outWidth;
+    int inSampleSize = 1;
+
+    if (height > reqHeight || width > reqWidth) {
+
+      final int halfHeight = height / 2;
+      final int halfWidth = width / 2;
+
+      // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+      // height and width larger than the requested height and width.
+      while ((halfHeight / inSampleSize) >= reqHeight
+      && (halfWidth / inSampleSize) >= reqWidth) {
+        inSampleSize *= 2;
+      }
+    }
+
+    return inSampleSize;
+  }
+
+  private void validateInput(String pathOrData, int isBase64Image, int size) {
 
     if (isBase64Image == 0) {
       if (!StringUtils.isEmpty(pathOrData)
@@ -272,28 +295,56 @@ public class ImageFilter extends CordovaPlugin {
 
         currentImagePath = pathOrData;
         pathOrData = pathOrData.substring(7);
-
-        currentEditingImage = base64ToBitmap(pathOrData);
-
-        float ratio = (float) screenSize.getWidth() / (float) currentEditingImage.getWidth();
-        MySize newSize = new MySize(Math.round(currentEditingImage.getWidth() * ratio), Math.round(currentEditingImage.getHeight() * ratio));
-        currentPreviewImage = Bitmap.createScaledBitmap(currentEditingImage, newSize.getWidth(), newSize.getHeight(), false);
-
-        MySize thumbSize = new MySize(Math.round(currentPreviewImage.getWidth() * 0.2f), Math.round(currentPreviewImage.getHeight() * 0.2f));
-        currentThumbnailImage = Bitmap.createScaledBitmap(currentPreviewImage, thumbSize.getWidth(), thumbSize.getHeight(), false);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(pathOrData, options);
+        switch(size){
+          case 0:
+          currentEditingImage = BitmapFactory.decodeFile(pathOrData);
+          break;
+          case 1:
+          float ratio = (float) screenSize.getWidth() / (float) options.outWidth;
+          MySize newSize = new MySize(Math.round(options.outWidth * ratio), Math.round(options.outHeight * ratio));
+          options.inSampleSize = calculateInSampleSize(options,newSize.getWidth(),newSize.getHeight());
+          options.inJustDecodeBounds = false;
+          currentPreviewImage = BitmapFactory.decodeFile(pathOrData,options);
+          break;
+          case 2:
+          MySize newSize = new MySize(Math.round(options.outWidth * 0.2f), Math.round(options.outHeight * 0.2f));
+          options.inSampleSize = calculateInSampleSize(options,newSize.getWidth(),newSize.getHeight());
+          options.inJustDecodeBounds = false;
+          currentThumbnailImage = BitmapFactory.decodeFile(pathOrData,options);
+          break;
+        }
       }
     } else if (isBase64Image == 1) {
       if (!StringUtils.isEmpty(pathOrData)
       && !pathOrData.equals(base64Image)) {
         base64Image = pathOrData;
-        currentEditingImage = base64ToBitmap(pathOrData);
-
-        float ratio = (float) screenSize.getWidth() / (float) currentEditingImage.getWidth();
-        MySize newSize = new MySize(Math.round(currentEditingImage.getWidth() * ratio), Math.round(currentEditingImage.getHeight() * ratio));
-        currentPreviewImage = Bitmap.createScaledBitmap(currentEditingImage, newSize.getWidth(), newSize.getHeight(), false);
-
-        MySize thumbSize = new MySize(Math.round(currentPreviewImage.getWidth() * 0.2f), Math.round(currentPreviewImage.getHeight() * 0.2f));
-        currentThumbnailImage = Bitmap.createScaledBitmap(currentPreviewImage, thumbSize.getWidth(), thumbSize.getHeight(), false);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(pathOrData, options);
+        byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+        Bitmap tmpcurrentEditingImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length,options);
+        switch(size){
+          case 0:
+          options.inJustDecodeBounds = false;
+          currentEditingImage = base64ToBitmap(pathOrData,options);
+          break;
+          case 1:
+          float ratio = (float) screenSize.getWidth() / (float) options.outWidth;
+          MySize newSize = new MySize(Math.round(options.outWidth * ratio), Math.round(options.outHeight * ratio));
+          options.inSampleSize = calculateInSampleSize(options,newSize.getWidth(),newSize.getHeight());
+          options.inJustDecodeBounds = false;
+          currentPreviewImage = base64ToBitmap(pathOrData,options);
+          break;
+          case 2:
+          MySize newSize = new MySize(Math.round(options.outWidth * 0.2f), Math.round(options.outHeight * 0.2f));
+          options.inSampleSize = calculateInSampleSize(options,newSize.getWidth(),newSize.getHeight());
+          options.inJustDecodeBounds = false;
+          currentThumbnailImage = base64ToBitmap(pathOrData,options);
+          break;
+        }
       }
     } else {
       this.callbackContext.error("something wrong while passing isBase64Image value");
@@ -580,16 +631,15 @@ public class ImageFilter extends CordovaPlugin {
         }
       }
 
-      private Bitmap base64ToBitmap(String encodedImage) {
+      private Bitmap base64ToBitmap(String encodedImage,BitmapFactory.Options options) {
         byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
         try{
-          Bitmap tmpcurrentEditingImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+          Bitmap tmpcurrentEditingImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length,options);
           InputStream targetStream = new ByteArrayInputStream(decodedString);
           ExifInterface exif = new ExifInterface(targetStream);
-          System.out.println("Exif interface value is: " + exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL));
           return rotateBitmap(tmpcurrentEditingImage,exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL));
         }catch(IOException e){
-          return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+          return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length,options);
         }
       }
 
