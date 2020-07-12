@@ -1,14 +1,16 @@
 var exec = require('cordova/exec');
 
 exports.applyEffect = function(options) {
+  options.base64 = options.base64 || 1
   return new Promise(function (resolve, reject) {
-    exec(resolve, reject, "ImageFilter", "applyEffect", [options.path, options.filters, options.quality, 1]);
+    exec(resolve, reject, "ImageFilter", "applyEffect", [options.path, options.filters, options.quality, options.base64]);
   });
 };
 
 exports.applyEffectForReview = function(options) {
+  options.base64 = options.base64 || 1
   return new Promise(function (resolve, reject) {
-    exec(resolve, reject, "ImageFilter", "applyEffectForReview", [options.path, options.filters, options.quality, 1]);
+    exec(resolve, reject, "ImageFilter", "applyEffectForReview", [options.path, options.filters, options.quality, options.base64]);
   });
 };
 
@@ -35,7 +37,8 @@ exports.cropAsync = function(image, options) {
 }
 
 exports.applyEffectForThumbnail = function(options) {
+  options.base64 = options.base64 || 1
   return new Promise(function (resolve, reject) {
-    exec(resolve, reject, "ImageFilter", "applyEffectForThumbnail", [options.path, options.filters, options.quality, 1]);
+    exec(resolve, reject, "ImageFilter", "applyEffectForThumbnail", [options.path, options.filters, options.quality, options.base64]);
   });
 };
