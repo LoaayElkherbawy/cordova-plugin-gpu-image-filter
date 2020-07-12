@@ -183,7 +183,9 @@ public class ImageFilter extends CordovaPlugin {
 
   private PluginResult cropImage(String imagePath,JSONObject options, CallbackContext callbackContext) {
     try{
-      currentEditingImage = base64ToBitmap(imagePath);
+      BitmapFactory.Options opts = new BitmapFactory.Options();
+      opts.inJustDecodeBounds = false;
+      currentEditingImage = base64ToBitmap(imagePath,opts);
       compressCropQuality = options.getDouble("quality");
 
       int widthRatio = options.getInt("widthRatio");
@@ -304,14 +306,14 @@ public class ImageFilter extends CordovaPlugin {
           break;
           case 1:
           float ratio = (float) screenSize.getWidth() / (float) options.outWidth;
-          MySize newSize = new MySize(Math.round(options.outWidth * ratio), Math.round(options.outHeight * ratio));
-          options.inSampleSize = calculateInSampleSize(options,newSize.getWidth(),newSize.getHeight());
+          MySize reviewSize = new MySize(Math.round(options.outWidth * ratio), Math.round(options.outHeight * ratio));
+          options.inSampleSize = calculateInSampleSize(options,reviewSize.getWidth(),reviewSize.getHeight());
           options.inJustDecodeBounds = false;
           currentPreviewImage = BitmapFactory.decodeFile(pathOrData,options);
           break;
           case 2:
-          MySize newSize = new MySize(Math.round(options.outWidth * 0.2f), Math.round(options.outHeight * 0.2f));
-          options.inSampleSize = calculateInSampleSize(options,newSize.getWidth(),newSize.getHeight());
+          MySize thumbSize = new MySize(Math.round(options.outWidth * 0.2f), Math.round(options.outHeight * 0.2f));
+          options.inSampleSize = calculateInSampleSize(options,thumbSize.getWidth(),thumbSize.getHeight());
           options.inJustDecodeBounds = false;
           currentThumbnailImage = BitmapFactory.decodeFile(pathOrData,options);
           break;
@@ -323,8 +325,7 @@ public class ImageFilter extends CordovaPlugin {
         base64Image = pathOrData;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(pathOrData, options);
-        byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+        byte[] decodedString = Base64.decode(pathOrData, Base64.DEFAULT);
         Bitmap tmpcurrentEditingImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length,options);
         switch(size){
           case 0:
@@ -339,8 +340,8 @@ public class ImageFilter extends CordovaPlugin {
           currentPreviewImage = base64ToBitmap(pathOrData,options);
           break;
           case 2:
-          MySize newSize = new MySize(Math.round(options.outWidth * 0.2f), Math.round(options.outHeight * 0.2f));
-          options.inSampleSize = calculateInSampleSize(options,newSize.getWidth(),newSize.getHeight());
+          MySize newSize1 = new MySize(Math.round(options.outWidth * 0.2f), Math.round(options.outHeight * 0.2f));
+          options.inSampleSize = calculateInSampleSize(options,newSize1.getWidth(),newSize1.getHeight());
           options.inJustDecodeBounds = false;
           currentThumbnailImage = base64ToBitmap(pathOrData,options);
           break;
@@ -358,7 +359,7 @@ public class ImageFilter extends CordovaPlugin {
 
   private void applyEffect(String pathOrData, final JSONArray filters, final double compressQuality, int isBase64Image, CallbackContext callbackContext) {
     synchronized (this) {
-      this.validateInput(pathOrData, isBase64Image);
+      this.validateInput(pathOrData, isBase64Image,0);
 
       Bitmap bmp = currentEditingImage;
 
@@ -398,7 +399,7 @@ public class ImageFilter extends CordovaPlugin {
 
     private void applyEffectForReview(String pathOrData, final JSONArray filters, final double compressQuality, int isBase64Image, CallbackContext callbackContext) {
       synchronized (this) {
-        this.validateInput(pathOrData, isBase64Image);
+        this.validateInput(pathOrData, isBase64Image,1);
 
         Bitmap bmp = currentPreviewImage;
 
@@ -437,8 +438,8 @@ public class ImageFilter extends CordovaPlugin {
       }
 
       private void applyEffectForThumbnail(final String pathOrData, final JSONArray filters, final double compressQuality, final int isBase64Image, final CallbackContext callbackContext) {
-        validateInput(pathOrData, isBase64Image);
-        Bitmap thumb = getThumbnailImage();
+        validateInput(pathOrData, isBase64Image,3);
+        Bitmap thumb = currentThumbnailImage;
         Bitmap bmp = thumb;
 
         for(int i =0;i<filters.length();i++){
